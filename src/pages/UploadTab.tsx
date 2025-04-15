@@ -12,15 +12,19 @@ export default function UploadTab() {
     mutate(
       { name, content: base64 },
       {
-        onSuccess: () => {
-          toast.success("Upload successful");
-          addUpload({
-            name,
-            cid: data.cid,
-            timestamp: new Date().toISOString(),
-          });
+        onSuccess: (data) => {
+          if (data?.isSuccess) {
+            toast.success("Upload successful");
+            addUpload({
+              name,
+              cid: data.cid,
+              timestamp: new Date().toISOString(),
+            });
+          } else {
+            toast.error(data?.message || "Upload failed.");
+          }
         },
-        onError: () => toast.error("Upload failed"),
+        onError: () => toast.error("Something went wrong during upload."),
       }
     );
   };

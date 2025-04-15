@@ -10,15 +10,19 @@ export default function VerifyTab() {
 
   const handleSubmit = (cid: string) => {
     mutate(cid, {
-      onSuccess: () => {
-        toast.success("Upload successful");
-        addVerification({
-          name: "Verified Certificate",
-          cid: cid,
-          timestamp: new Date().toISOString(),
-        });
+      onSuccess: (data) => {
+        if (data?.isSuccess) {
+          toast.success("Verification successful");
+          addVerification({
+            name: "Verified Certificate",
+            cid,
+            timestamp: new Date().toISOString(),
+          });
+        } else {
+          toast.error(data?.message || "Verification failed");
+        }
       },
-      onError: () => toast.error("Verification failed"),
+      onError: () => toast.error("Request failed"),
     });
   };
 
@@ -29,7 +33,9 @@ export default function VerifyTab() {
           Verify Certificate
         </h1>
         <VerifyForm onSubmit={handleSubmit} isPending={isPending} />
-        {data?.file && <VerifiedResult file={data.file} />}
+        {data?.file && (
+          <VerifiedResult file={JSON.stringify(data.file, null, 2)} />
+        )}
       </div>
     </div>
   );
