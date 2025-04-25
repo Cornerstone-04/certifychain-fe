@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import { ThreeDotsLoader } from "../ui/three-dot-loader";
 
 type Props = {
   onSubmit: (name: string, base64: string) => void;
@@ -20,6 +21,10 @@ export default function UploadForm({ onSubmit, isPending }: Props) {
   const toBase64 = (file: File): Promise<string> =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
+
+      reader.onloadstart = () => toast.loading("Converting file to base64...");
+      reader.onloadend = () => toast.success("File converted successfully");
+
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result as string);
       reader.onerror = reject;
@@ -27,12 +32,19 @@ export default function UploadForm({ onSubmit, isPending }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!name || !file) {
       toast.warning("Please provide both name and file");
       return;
     }
-    const base64 = await toBase64(file);
-    onSubmit(name.trim(), base64);
+
+    try {
+      const base64 = await toBase64(file);
+      toast.loading("Uploading certificate...");
+      onSubmit(name.trim(), base64);
+    } catch {
+      toast.error("Failed to convert file to base64");
+    }
   };
 
   return (
@@ -52,7 +64,7 @@ export default function UploadForm({ onSubmit, isPending }: Props) {
       </div>
 
       <Button type="submit" disabled={isPending} className="w-full">
-        {isPending ? "Uploading..." : "Upload Certificate"}
+        {isPending ? <ThreeDotsLoader/> : "Upload Certificate"}
       </Button>
     </form>
   );

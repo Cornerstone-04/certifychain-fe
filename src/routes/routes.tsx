@@ -1,12 +1,11 @@
+import Error404 from "@/pages/Error404";
 import Home from "@/pages/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { createBrowserRouter } from "react-router";
 
-export default function AppRoutes() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
-  );
-}
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <Error404 />,
+    children: [{ path: "", element: <Home /> }],
+  },
+]);
