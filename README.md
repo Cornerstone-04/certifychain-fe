@@ -123,7 +123,7 @@ src/
 ├── hooks/                # React Query hooks
 ├── store/                # Zustand state
 ├── lib/                  # Axios instance and utility functions
-└── pages/                # App pages (Tabs)
+└── screens/              # App pages and tabs
 ```
 
 ---
