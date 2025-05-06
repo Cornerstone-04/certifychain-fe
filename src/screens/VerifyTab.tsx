@@ -27,7 +27,7 @@ export default function VerifyTab() {
   };
 
   return (
-    <div className="flex justify-center bg-muted/30 px-4 py-10 sm:py-12">
+    <div className="flex justify-center bg-muted/30 px-4 py-10">
       <div className="w-full max-w-lg bg-white rounded-xl shadow-lg p-6">
         <h1 className="text-2xl font-bold mb-4 text-center">
           Verify Certificate

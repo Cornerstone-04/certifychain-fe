@@ -1,15 +1,13 @@
 import { CopyButton } from "@/components/ui/copy-button";
+import { LucideDownload } from "lucide-react";
 
-type Props = {
-  file: string; // base64 with data URI prefix
-};
-
-export default function VerifiedResult({ file }: Props) {
+export default function VerifiedResult({ file }: { file: string }) {
   const mimeMatch = file.match(/^data:(.*?);base64,/);
   const mime = mimeMatch?.[1] || "application/octet-stream";
   const isImage = mime.startsWith("image/");
   const isPDF = mime === "application/pdf";
   const isText = mime.startsWith("text/");
+  const downloadURL = `certificate.${mime.split("/")[1] || "bin"}`;
 
   return (
     <div className="mt-6 p-4 bg-green-50 border border-green-400 rounded shadow-sm text-sm animate-in fade-in zoom-in-75 duration-300 space-y-3">
@@ -47,10 +45,10 @@ export default function VerifiedResult({ file }: Props) {
 
       <a
         href={file}
-        download={`certificate.${mime.split("/")[1] || "bin"}`}
-        className="text-blue-600 underline text-xs inline-block"
+        download={downloadURL}
+        className="text-blue-600 underline text-xs mt-2 flex items-center gap-0.5"
       >
-        Download File
+        <LucideDownload className="size-3.5" /> Download Certificate
       </a>
     </div>
   );

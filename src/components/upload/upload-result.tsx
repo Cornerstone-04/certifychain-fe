@@ -1,10 +1,6 @@
 import { CopyButton } from "@/components/ui/copy-button";
 
-type Props = {
-  cid: string;
-};
-
-export default function UploadResult({ cid }: Props) {
+export default function UploadResult({ cid }: { cid: string }) {
   return (
     <div className="mt-6 p-4 bg-blue-50 border border-blue-400 rounded shadow-sm text-sm animate-in fade-in zoom-in-75 duration-300">
       ✅ Certificate Uploaded. CID:
