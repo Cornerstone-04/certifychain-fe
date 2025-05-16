@@ -11,6 +11,15 @@ export default function VerifiedResult({ file }: Props) {
   const isPDF = mime === "application/pdf";
   const isText = mime.startsWith("text/");
 
+  function downloadFile() {
+    const link = document.createElement("a");
+    link.href = file;
+    link.download = `certificate.${mime.split("/")[1] || "bin"}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   return (
     <div className="mt-6 p-4 bg-green-50 border border-green-400 rounded shadow-sm text-sm animate-in fade-in zoom-in-75 duration-300 space-y-3">
       <p className="font-medium">✅ Certificate Verified</p>
@@ -45,13 +54,15 @@ export default function VerifiedResult({ file }: Props) {
 
       <CopyButton value={file} />
 
-      <a
-        href={file}
-        download={`certificate.${mime.split("/")[1] || "bin"}`}
+      <button
+        // href={file}
+        // download={`certificate.${mime.split("/")[1] || "bin"}`}
+        // target="_blank"
+        onClick={downloadFile}
         className="text-blue-600 underline text-xs inline-block"
       >
         Download File
-      </a>
+      </button>
     </div>
   );
 }
