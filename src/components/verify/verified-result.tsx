@@ -1,10 +1,7 @@
 import { CopyButton } from "@/components/ui/copy-button";
+import { LucideDownload } from "lucide-react";
 
-type Props = {
-  file: string; // base64 with data URI prefix
-};
-
-export default function VerifiedResult({ file }: Props) {
+export default function VerifiedResult({ file }: { file: string }) {
   const mimeMatch = file.match(/^data:(.*?);base64,/);
   const mime = mimeMatch?.[1] || "application/octet-stream";
   const isImage = mime.startsWith("image/");

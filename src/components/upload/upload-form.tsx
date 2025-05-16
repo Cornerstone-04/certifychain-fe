@@ -18,7 +18,9 @@ export default function UploadForm({ onSubmit, isPending }: Props) {
     if (selected) setFile(selected);
   };
 
-  const toBase64 = (file: File): Promise<string> =>
+  const toBase64 = (
+    file: File
+  ): Promise<{ base64: string; mimeType: string }> =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
 
@@ -26,7 +28,14 @@ export default function UploadForm({ onSubmit, isPending }: Props) {
       reader.onloadend = () => toast.success("File converted successfully");
 
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
+      reader.onload = () => {
+        const result = reader.result as string;
+        const [prefix, base64] = result.split(",");
+        const mimeMatch = prefix.match(/^data:(.*?);base64$/);
+        const mimeType = mimeMatch?.[1] || "application/octet-stream";
+
+        resolve({ base64, mimeType });
+      };
       reader.onerror = reject;
     });
 
@@ -39,7 +48,7 @@ export default function UploadForm({ onSubmit, isPending }: Props) {
     }
 
     try {
-      const base64 = await toBase64(file);
+      const { base64 } = await toBase64(file);
       toast.loading("Uploading certificate...");
       onSubmit(name.trim(), base64);
     } catch {
@@ -64,7 +73,7 @@ export default function UploadForm({ onSubmit, isPending }: Props) {
       </div>
 
       <Button type="submit" disabled={isPending} className="w-full">
-        {isPending ? <ThreeDotsLoader/> : "Upload Certificate"}
+        {isPending ? <ThreeDotsLoader /> : "Upload Certificate"}
       </Button>
     </form>
   );
