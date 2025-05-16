@@ -1,5 +1,5 @@
 import { CopyButton } from "@/components/ui/copy-button";
-import { LucideDownload } from "lucide-react";
+// import { LucideDownload } from "lucide-react";
 
 export default function VerifiedResult({ file }: { file: string }) {
   const mimeMatch = file.match(/^data:(.*?);base64,/);
