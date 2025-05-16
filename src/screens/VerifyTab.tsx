@@ -34,7 +34,7 @@ export default function VerifyTab() {
         </h1>
         <VerifyForm onSubmit={handleSubmit} isPending={isPending} />
         {data?.file && (
-          <VerifiedResult file={JSON.stringify(data.file, null, 2)} />
+          <VerifiedResult file={JSON.stringify(data.file, null)} />
         )}
       </div>
     </div>
