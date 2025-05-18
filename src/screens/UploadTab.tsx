@@ -5,28 +5,34 @@ import { useCertificateStore } from "@/store/certificateStore";
 import { toast } from "sonner";
 
 export default function UploadTab() {
-  const { mutate, data, isPending } = useUploadCertificate();
+  const { mutate, data } = useUploadCertificate();
   const { addUpload } = useCertificateStore();
 
-  const handleSubmit = (name: string, base64: string) => {
-    mutate(
-      { name, content: base64 },
-      {
-        onSuccess: (data) => {
-          if (data?.isSuccess) {
-            toast.success("Upload successful");
-            addUpload({
-              name,
-              cid: data.cid,
-              timestamp: new Date().toISOString(),
-            });
-          } else {
-            toast.error(data?.message || "Upload failed.");
-          }
-        },
-        onError: () => toast.error("Something went wrong during upload."),
-      }
-    );
+  const handleSubmit = async (name: string, base64: string): Promise<void> => {
+    return new Promise((resolve) => {
+      mutate(
+        { name, content: base64 },
+        {
+          onSuccess: (data) => {
+            if (data?.isSuccess) {
+              toast.success("Upload successful");
+              addUpload({
+                name,
+                cid: data.cid,
+                timestamp: new Date().toISOString(),
+              });
+            } else {
+              toast.error(data?.message || "Upload failed.");
+            }
+            resolve();
+          },
+          onError: () => {
+            toast.error("Something went wrong during upload.");
+            resolve();
+          },
+        }
+      );
+    });
   };
 
   return (
@@ -35,7 +41,7 @@ export default function UploadTab() {
         <h1 className="text-2xl font-bold mb-4 text-center">
           Upload Certificate
         </h1>
-        <UploadForm onSubmit={handleSubmit} isPending={isPending} />
+        <UploadForm onSubmit={handleSubmit} />
         {data?.cid && <UploadResult cid={data.cid} />}
       </div>
     </div>
