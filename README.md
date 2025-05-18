@@ -8,7 +8,7 @@ Built with **React (TypeScript)**, styled with **TailwindCSS**, and enhanced usi
 
 ## 🌐 Live Preview
 
-If deployed, link would go here (e.g., `https://labeeb-seven.vercel.app/`)
+If deployed, link would go here (e.g., `https://labeeb-fe.vercel.app/`)
 
 ---
 
@@ -82,9 +82,11 @@ pnpm lint
 
 ## ⚙️ Environment Setup
 
-Ensure the backend is running locally on **port 3000** (`http://localhost:3000`). All Axios requests are routed to this server.
+- Ensure the backend is running locally on **port 3000** at [`http://localhost:3000`](http://localhost:3000).
+- The production backend is also live at [**labeeb-production.up.railway.app**](http://labeeb-production.up.railway.app).
+  All Axios requests are routed to this server unless overridden.
 
-`.env` file is required in the root folder.
+A `.env` file is required in the root folder with the following content:
 
 ```bash
 VITE_API_URL=http://localhost:3000
