@@ -1,23 +1,24 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
-type Props = {
+type VerifyFormProps = {
   onSubmit: (cid: string) => void;
   isPending: boolean;
 };
 
-export default function VerifyForm({ onSubmit, isPending }: Props) {
+export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
   const [hash, setHash] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!hash.trim()) {
-      toast("Enter a valid CID");
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    const trimmedHash = hash.trim();
+    if (!trimmedHash) {
+      toast.warning("Please enter a valid CID.");
       return;
     }
-    onSubmit(hash.trim());
+    onSubmit(trimmedHash);
   };
 
   return (
@@ -27,6 +28,7 @@ export default function VerifyForm({ onSubmit, isPending }: Props) {
         onChange={(e) => setHash(e.target.value)}
         placeholder="Paste CID here"
         className="text-sm"
+        autoFocus
       />
       <Button type="submit" disabled={isPending} className="w-full">
         {isPending ? "Verifying..." : "Verify Certificate"}
