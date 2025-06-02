@@ -8,30 +8,33 @@ export default function UploadTab() {
   const { mutate, data } = useUploadCertificate();
   const { addUpload } = useCertificateStore();
 
-  const handleSubmit = async (name: string, base64: string): Promise<void> => {
+  const handleSubmit = async (
+    name: string,
+    base64: FormData,
+  ): Promise<void> => {
+    console.log(base64);
     return new Promise((resolve) => {
-      mutate(
-        { name, content: base64 },
-        {
-          onSuccess: (data) => {
-            if (data?.isSuccess) {
-              toast.success("Upload successful");
-              addUpload({
-                name,
-                cid: data.cid,
-                timestamp: new Date().toISOString(),
-              });
-            } else {
-              toast.error(data?.message || "Upload failed.");
-            }
-            resolve();
-          },
-          onError: () => {
-            toast.error("Something went wrong during upload.");
-            resolve();
-          },
-        }
-      );
+      console.log({ name, content: base64 });
+      mutate(base64, {
+        onSuccess: (data) => {
+          if (data.data) {
+            toast.success("Upload successful");
+            addUpload({
+              name,
+              cid: data.data.cid,
+              timestamp: new Date().toISOString(),
+            });
+            resolve(data.data);
+          } else {
+            toast.error(data?.data.message || "Upload failed.");
+          }
+          resolve();
+        },
+        onError: () => {
+          toast.error("Something went wrong during upload.");
+          resolve();
+        },
+      });
     });
   };
 
@@ -42,7 +45,7 @@ export default function UploadTab() {
           Upload Certificate
         </h1>
         <UploadForm onSubmit={handleSubmit} />
-        {data?.cid && <UploadResult cid={data.cid} />}
+        {data?.data.cid && <UploadResult cid={data.data.cid} />}
       </div>
     </div>
   );

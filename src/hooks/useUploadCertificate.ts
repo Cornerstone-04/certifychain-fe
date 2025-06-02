@@ -1,14 +1,16 @@
 import { api } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 
-interface UploadPayload {
-  name: string;
-  content: string;
-}
-
 export const useUploadCertificate = () => {
   return useMutation({
-    mutationFn: (data: UploadPayload) =>
-      api.post("/upload", data).then((res) => res.data),
+    mutationFn: (data: FormData) => {
+      console.log("triggering upload");
+      const res = api.post("/upload", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return res;
+    },
   });
 };
