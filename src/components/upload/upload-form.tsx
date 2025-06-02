@@ -66,7 +66,7 @@ export default function UploadForm({ onSubmit }: UploadFormProps) {
         <Input type="file" onChange={handleFileChange} />
       </div>
 
-      <Button type="submit" disabled={loading} className="w-full">
+      <Button type="submit" disabled={loading} className="w-full bg-blue-500 hover:bg-blue-700">
         {loading ? <ThreeDotsLoader /> : "Upload Certificate"}
       </Button>
     </form>

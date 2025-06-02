@@ -30,7 +30,11 @@ export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
         className="text-sm"
         autoFocus
       />
-      <Button type="submit" disabled={isPending} className="w-full">
+      <Button
+        type="submit"
+        disabled={isPending}
+        className="w-full bg-blue-500 hover:bg-blue-700"
+      >
         {isPending ? "Verifying..." : "Verify Certificate"}
       </Button>
     </form>
