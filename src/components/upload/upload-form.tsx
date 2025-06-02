@@ -24,27 +24,6 @@ export default function UploadForm({ onSubmit }: UploadFormProps) {
     }
   };
 
-  // const toBase64 = (
-  //   file: File,
-  // ): Promise<{ base64: string; mimeType: string }> => {
-  //   console.log("converting to base64");
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => {
-  //       const result = reader.result as string;
-  //       const [prefix, base64] = result.split(",");
-  //       const mimeMatch = prefix.match(/^data:(.*?);base64$/);
-  //       const mimeType = mimeMatch?.[1] || "application/octet-stream";
-  //       resolve({ base64, mimeType });
-  //     };
-  //     reader.onerror = (error) => {
-  //       reject(error);
-  //     };
-  //   });
-  // };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -54,11 +33,9 @@ export default function UploadForm({ onSubmit }: UploadFormProps) {
     }
 
     setLoading(true);
-    // const convertingToastId = toast.loading("Converting file to base64.");
 
     try {
       console.log("converted to base64");
-      // toast.dismiss(convertingToastId);
 
       const uploadToastId = toast.loading("Uploading certificate.");
       await onSubmit(name.trim(), file);
