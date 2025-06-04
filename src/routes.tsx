@@ -1,7 +1,7 @@
 import Error404 from "@/screens/Error404";
 import Home from "@/screens/Home";
 import { createBrowserRouter } from "react-router";
-import Landing from "./screens/Landing";
+import Landing from "./screens/landing/Landing";
 import RegisterPage from "./screens/auth/Register";
 import LoginPage from "./screens/auth/Login";
 

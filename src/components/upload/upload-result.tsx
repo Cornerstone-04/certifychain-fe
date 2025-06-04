@@ -2,7 +2,7 @@ import { CopyButton } from "@/components/ui/copy-button";
 
 export default function UploadResult({ cid }: { cid: string }) {
   return (
-    <div className="mt-6 p-4 bg-blue-50 border border-blue-400 rounded shadow-sm text-sm animate-in fade-in zoom-in-75 duration-300">
+    <div className="mt-6 p-4 bg-blue-50 border border-blue-400 text-blue-900 dark:bg-blue-950 dark:border-blue-700 dark:text-blue-100 rounded shadow-sm text-sm animate-in fade-in zoom-in-75 duration-300">
       ✅ Certificate Uploaded. CID:
       <div className="mt-1 font-mono text-xs break-all">
         <code>{cid}</code>

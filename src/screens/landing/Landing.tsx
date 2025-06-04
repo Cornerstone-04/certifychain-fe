@@ -1,8 +1,18 @@
-import { Shield, Upload, CheckCircle, ArrowRight } from "lucide-react";
+import {
+  Shield,
+  Upload,
+  CheckCircle,
+  ArrowRight,
+  FileText,
+  Zap,
+  Info,
+} from "lucide-react"; // Import new icons
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import "./landing.css";
+import { FloatingParticles } from "@/components/shared/floating-particles";
+import { ModeToggle } from "@/components/shared/mode-toggle";
 
 export default function Landing() {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,7 +37,7 @@ export default function Landing() {
 
       {/* Header */}
       <header
-        className={`relative w-full px-4 py-6 flex items-center justify-between max-w-6xl mx-auto transition-all duration-1000 ${
+        className={`relative w-full px-10 py-6 flex items-center justify-between transition-all duration-1000 ${
           isVisible ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0"
         }`}
       >
@@ -41,6 +51,7 @@ export default function Landing() {
           </span>
         </div>
         <div className="flex gap-3">
+          <ModeToggle />
           <Link to="/login">
             <Button
               variant="outline"
@@ -89,11 +100,70 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-ping delay-1000"></div>
-          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-indigo-400 rounded-full animate-ping delay-1500"></div>
-          <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-purple-400 rounded-full animate-pulse delay-2000"></div>
+        <FloatingParticles />
+      </section>
+
+      {/* Feature Highlights - ADDED THIS SECTION */}
+      <section className="relative py-16 px-4">
+        {" "}
+        {/* Added a section wrapper for consistent padding */}
+        <div className="max-w-6xl mx-auto">
+          <div
+            className={`transition-all duration-700 delay-400 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-4 opacity-0"
+            }`}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <FeatureCard
+                icon={<FileText className="w-5 h-5" />}
+                title="Multiple Formats"
+                description="Support for PDF, PNG, JPG and other formats"
+                gradient="from-purple-500 to-pink-500"
+              />
+              <FeatureCard
+                icon={<Shield className="w-5 h-5" />}
+                title="Encrypted Storage"
+                description="End-to-end encryption for maximum security"
+                gradient="from-blue-500 to-cyan-500"
+              />
+              <FeatureCard
+                icon={<Zap className="w-5 h-5" />}
+                title="Instant Upload"
+                description="Fast processing and immediate CID generation"
+                gradient="from-green-500 to-emerald-500"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div
+            className={`transition-all duration-700 delay-500 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-4 opacity-0"
+            }`}
+          >
+            <div className="bg-gradient-to-r from-amber-50/50 to-orange-50/50 dark:from-amber-950/20 dark:to-orange-950/20 border border-amber-200/30 dark:border-amber-800/20 rounded-xl p-4">
+              <div className="flex items-start space-x-3">
+                <Info className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                <div className="text-sm">
+                  <p className="font-medium text-amber-800 dark:text-amber-200 mb-1">
+                    Keep your CID safe!
+                  </p>
+                  <p className="text-amber-600 dark:text-amber-300">
+                    The Content Identifier (CID) is unique to your certificate
+                    and required for verification. Save it securely or share it
+                    with parties who need to verify your certificate.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -152,6 +222,34 @@ export default function Landing() {
   );
 }
 
+// Define FeatureCard component
+function FeatureCard({
+  icon,
+  title,
+  description,
+  gradient,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  gradient: string;
+}) {
+  return (
+    <div className="group bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200/30 dark:border-gray-700/30 hover:border-gray-300/50 dark:hover:border-gray-600/50 transition-all duration-300 hover:scale-105">
+      <div
+        className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-lg flex items-center justify-center text-white mb-3 transition-transform duration-300 group-hover:scale-110`}
+      >
+        {icon}
+      </div>
+      <h4 className="font-semibold text-gray-800 dark:text-white text-sm mb-1">
+        {title}
+      </h4>
+      <p className="text-gray-600 dark:text-gray-300 text-xs">{description}</p>
+    </div>
+  );
+}
+
+// Existing Feature component
 function Feature({
   icon,
   title,
