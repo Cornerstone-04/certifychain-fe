@@ -59,7 +59,7 @@ export default function Home() {
 
       {/* Main Content */}
       <div className="relative flex items-start justify-center p-4 pt-8">
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-2xl">
           {/* Welcome Section */}
           <div
             className={`text-center mb-12 transition-all duration-1000 delay-200 ${
@@ -85,35 +85,27 @@ export default function Home() {
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full mt-4"></div>
           </div>
-
-          {/*/
-
-          {/* Main Tab Container */}
-          <div
-            className={`bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 p-8 transition-all duration-1000 delay-600 ${
-              isVisible
-                ? "translate-y-0 opacity-100 scale-100"
-                : "translate-y-10 opacity-0 scale-95"
-            }`}
+{/*  backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 p-8 transition-all duration-1000 delay-600 */}
+          <Tabs
+            defaultValue={activeTab}
+            value={activeTab}
+            className="w-full"
           >
-            <Tabs defaultValue={activeTab} value={activeTab} className="w-full">
-              <AnimatedTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-              <TabsContent value="upload" className="mt-0">
-                <FadeTab>
-                  <UploadTab />
-                </FadeTab>
-              </TabsContent>
-              <TabsContent value="verify" className="mt-0">
-                <FadeTab>
-                  <VerifyTab />
-                </FadeTab>
-              </TabsContent>
-            </Tabs>
-          </div>
+            <AnimatedTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+            <TabsContent value="upload" className="mt-0">
+              <FadeTab>
+                <UploadTab />
+              </FadeTab>
+            </TabsContent>
+            <TabsContent value="verify" className="mt-0">
+              <FadeTab>
+                <VerifyTab />
+              </FadeTab>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
 
-      {/* Floating particles */}
       <FloatingParticles />
     </div>
   );
