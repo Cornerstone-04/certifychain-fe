@@ -18,7 +18,7 @@ export default function AnimatedTabs({
             key={tab}
             value={tab}
             onClick={() => setActiveTab(tab)}
-            className="relative z-10 shadow-inner"
+            className="relative z-10"
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </TabsTrigger>
