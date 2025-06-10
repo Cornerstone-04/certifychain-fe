@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Mail,
-  Lock,
-  Eye,
-  EyeOff,
-  ArrowLeft,
-  UserCog,
-  User,
-} from "lucide-react";
-import { Link } from "react-router";
+import { Mail, Lock, Eye, EyeOff, UserCog, User } from "lucide-react";
+import { Link, useNavigate } from "react-router";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const handleReturnToHome = () => {
+    navigate("/");
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -40,12 +38,13 @@ const LoginPage = () => {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700 backdrop-blur-lg">
           {/* Header */}
           <div className="text-center mb-8">
-            <Link
-              to={"/"}
+            <Button
+              onClick={handleReturnToHome}
+              variant={"ghost"}
               className="absolute top-2 left-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
-              <ArrowLeft />
-            </Link>
+              <FaArrowLeft />
+            </Button>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Welcome Back
             </h1>

@@ -1,10 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Lock, Eye, EyeOff, ArrowLeft, IdCard } from "lucide-react";
-import { Link } from "react-router";
+import { Mail, Lock, Eye, EyeOff, IdCard } from "lucide-react";
+import { FaArrowLeft } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -15,6 +17,10 @@ const RegisterPage = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const handleReturnToHome = () => {
+    navigate("/");
+  };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -33,12 +39,13 @@ const RegisterPage = () => {
       <div className="relative w-full max-w-md">
         <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700 backdrop-blur-lg">
           <div className="text-center mb-8">
-              <Link
-                to={"/"}
-                className="absolute top-2 left-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                <ArrowLeft />
-              </Link>
+            <Button
+              onClick={handleReturnToHome}
+              variant={"ghost"}
+              className="absolute top-2 left-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              <FaArrowLeft />
+            </Button>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex justify-center items-center">
               Create Your Account
             </h1>
