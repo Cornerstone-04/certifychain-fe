@@ -1,7 +1,7 @@
 // hooks/useLogout.ts
 import { useMutation } from "@tanstack/react-query";
 import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/hooks/lib/firebase";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { FirebaseError } from "firebase/app";

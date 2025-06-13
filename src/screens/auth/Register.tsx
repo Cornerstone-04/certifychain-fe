@@ -1,10 +1,12 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router";
 import { useRegister } from "@/hooks/useRegister";
+import { getPasswordStrength } from "@/utils/passwordStrength";
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -17,6 +19,10 @@ const RegisterPage = () => {
     email: "",
     password: "",
   });
+  const passwordStrength = useMemo(
+    () => getPasswordStrength(formData.password),
+    [formData.password]
+  );
 
   const handleReturnToHome = () => navigate("/");
 
@@ -29,6 +35,10 @@ const RegisterPage = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    if (passwordStrength.score < 3) {
+      toast.error("Please choose a stronger password.");
+      return;
+    }
     registerMutation.mutate(formData, {
       onSuccess: () => navigate("/home"),
     });
@@ -129,6 +139,23 @@ const RegisterPage = () => {
                   )}
                 </button>
               </div>
+              {formData.password && (
+                <div className="flex items-center justify-between mt-1">
+                  <div className="h-2 w-3/4 rounded bg-gray-200 dark:bg-gray-700">
+                    <div
+                      className={`h-full rounded transition-all duration-300 ${passwordStrength.color}`}
+                      style={{
+                        width: `${(passwordStrength.score / 5) * 100}%`,
+                      }}
+                    ></div>
+                  </div>
+                  <span
+                    className={`ml-3 text-xs font-medium ${passwordStrength["text-color"]}`}
+                  >
+                    {passwordStrength.label}
+                  </span>
+                </div>
+              )}
             </div>
 
             <Button

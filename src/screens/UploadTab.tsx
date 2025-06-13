@@ -30,6 +30,7 @@ export default function UploadTab() {
   ): Promise<void> => {
     console.log(base64);
     setIsUploading(true);
+    
 
     return new Promise((resolve) => {
       console.log({ name, content: base64 });

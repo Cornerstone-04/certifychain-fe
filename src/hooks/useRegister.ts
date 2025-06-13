@@ -1,14 +1,11 @@
-import {
-  useMutation,
-  UseMutationResult,
-} from "@tanstack/react-query";
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
   User,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/hooks/lib/firebase";
 import { toast } from "sonner";
 
 interface RegisterData {
