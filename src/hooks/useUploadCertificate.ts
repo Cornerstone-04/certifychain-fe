@@ -1,4 +1,4 @@
-import { api } from "@/hooks/lib/api";
+import { api } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 
 export const useUploadCertificate = () => {

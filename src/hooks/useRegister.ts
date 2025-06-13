@@ -5,7 +5,7 @@ import {
   User,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { auth } from "@/hooks/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { toast } from "sonner";
 
 interface RegisterData {

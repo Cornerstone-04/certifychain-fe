@@ -4,7 +4,6 @@ import {
   Header,
   HeroSection,
   FeatureSection,
-  InfoBanner,
   WhyChooseSection,
   Footer,
 } from "@/components/landing";
@@ -22,7 +21,6 @@ export default function Landing() {
       <HeroSection isVisible={isVisible} />
       <FloatingParticles />
       <FeatureSection isVisible={isVisible} />
-      <InfoBanner isVisible={isVisible} />
       <WhyChooseSection isVisible={isVisible} />
       <Footer isVisible={isVisible} />
     </div>

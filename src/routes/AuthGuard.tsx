@@ -1,34 +1,22 @@
-// guards/AuthGuard.tsx
 import { Navigate, useLocation } from "react-router";
 import { useAuthStatus } from "@/hooks/useAuth";
+import { Loading } from "@/components/shared/loading";
 
-interface GuardProps {
-  children: React.ReactNode;
-}
-
-export function AuthGuard({ children }: GuardProps) {
+export function AuthGuard({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuthStatus();
   const location = useLocation();
 
-  if (loading) return <div className="text-center p-4">Loading...</div>;
-
-  // Redirect to login if not authenticated
-  if (!user) {
-    return <Navigate to="/" replace state={{ from: location }} />;
-  }
+  if (loading) return <Loading />;
+  if (!user) return <Navigate to="/" state={{ from: location }} replace />;
 
   return <>{children}</>;
 }
 
-export function GuestGuard({ children }: GuardProps) {
+export function GuestGuard({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuthStatus();
 
-  if (loading) return <div className="text-center p-4">Loading...</div>;
-
-  // Redirect to dashboard/home if already authenticated
-  if (user) {
-    return <Navigate to="/home" replace />;
-  }
+  if (loading) return <Loading />;
+  if (user) return <Navigate to="/home" replace />;
 
   return <>{children}</>;
 }

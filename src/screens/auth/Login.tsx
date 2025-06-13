@@ -32,7 +32,7 @@ const LoginPage = () => {
 
     loginMutation.mutate(formData, {
       onSuccess: () => {
-        navigate("/home"); // or wherever you want to redirect post-login
+        navigate("/home");
       },
     });
   };

@@ -5,24 +5,26 @@ import { toast } from "sonner";
 import { ThreeDotsLoader } from "../ui/three-dot-loader";
 
 type UploadFormProps = {
-  onSubmit: (name: string, base64: FormData) => Promise<void>;
+  onSubmit: (fields: {
+    name: string;
+    fullName: string;
+    matricNo: string;
+    file: File;
+  }) => Promise<void>;
+  isLoading?: boolean;
 };
 
 export default function UploadForm({ onSubmit }: UploadFormProps) {
   const [fullName, setFullName] = useState("");
   const [matricNo, setMatricNo] = useState("");
   const [certificateName, setCertificateName] = useState("");
-  const [file, setFile] = useState<FormData | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
-
-    const fileToUpload = new FormData();
-
     if (selected) {
-      fileToUpload.append("file", selected);
-      setFile(fileToUpload);
+      setFile(selected);
     }
   };
 
@@ -40,7 +42,13 @@ export default function UploadForm({ onSubmit }: UploadFormProps) {
       console.log("converted to base64");
 
       const uploadToastId = toast.loading("Uploading certificate.");
-      await onSubmit(certificateName.trim(), file);
+      await onSubmit({
+        name: certificateName.trim(),
+        fullName: fullName.trim(),
+        matricNo: matricNo.trim(),
+        file,
+      });
+
       toast.dismiss(uploadToastId);
       toast.success("Certificate uploaded successfully.");
     } catch (error) {

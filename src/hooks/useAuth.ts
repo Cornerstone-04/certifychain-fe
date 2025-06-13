@@ -1,7 +1,7 @@
 // hooks/useAuth.ts
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/hooks/lib/firebase";
+import { auth } from "@/lib/firebase";
 
 export const useAuthStatus = () => {
   const [user, setUser] = useState<User | null>(null);

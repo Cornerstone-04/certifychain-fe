@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/hooks/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { toast } from "sonner";
 

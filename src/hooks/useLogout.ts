@@ -1,10 +1,9 @@
-// hooks/useLogout.ts
 import { useMutation } from "@tanstack/react-query";
 import { signOut } from "firebase/auth";
-import { auth } from "@/hooks/lib/firebase";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { FirebaseError } from "firebase/app";
+import { auth } from "@/lib/firebase";
 
 export const useLogout = () => {
   const navigate = useNavigate();
@@ -17,8 +16,8 @@ export const useLogout = () => {
       toast.success("Signed out successfully.");
       navigate("/");
     },
-    onError: (error: FirebaseError) => {
-      toast.error(error.message || "Sign out failed.");
+    onError: (err: FirebaseError) => {
+      toast.error(err.message || "Logout failed");
     },
   });
 };
