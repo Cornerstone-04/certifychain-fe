@@ -1,4 +1,4 @@
-import { StatsCardProps } from "@/hooks/lib/types";
+import { StatsCardProps } from "@/lib/types";
 
 export function StatsCard({
   icon,

@@ -1,4 +1,4 @@
-import { ActivityItemProps } from "@/hooks/lib/types";
+import { ActivityItemProps } from "@/lib/types";
 
 export function ActivityItem({ action, time, status }: ActivityItemProps) {
   const statusColors = {
