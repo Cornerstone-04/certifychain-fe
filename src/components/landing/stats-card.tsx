@@ -7,7 +7,7 @@ export function StatsCard({
   description,
   gradient,
 }: StatsCardProps) {
-  return (
+return (
     <div className="group bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-200/50 dark:border-gray-700/50 hover:border-gray-300/50 dark:hover:border-gray-600/50">
       <div
         className={`w-12 h-12 bg-gradient-to-br ${gradient} rounded-xl flex items-center justify-center text-white mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
