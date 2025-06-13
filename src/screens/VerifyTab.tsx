@@ -4,7 +4,7 @@ import VerifiedResult from "@/components/verify/verified-result";
 import { toast } from "sonner";
 import { useCertificateStore } from "@/store/certificateStore";
 import { useState, useEffect } from "react";
-import { CheckCircle, Shield, Search } from "lucide-react";
+import { CheckCircle, Search } from "lucide-react";
 
 export default function VerifyTab() {
   const { mutate, data, isPending } = useVerifyCertificate();
@@ -42,29 +42,6 @@ export default function VerifyTab() {
 
   return (
     <div className="space-y-6">
-      {/* Status Banner */}
-      <div
-        className={`transition-all duration-700 delay-100 ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-        }`}
-      >
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border border-green-200/50 dark:border-green-800/30 rounded-2xl p-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-xl flex items-center justify-center">
-              <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-green-800 dark:text-green-200 text-sm">
-                Blockchain Verification
-              </h3>
-              <p className="text-green-600 dark:text-green-300 text-xs">
-                Instantly verify certificate authenticity using CID
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Form Container */}
       <div
         className={`transition-all duration-700 delay-200 ${

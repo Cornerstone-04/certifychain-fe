@@ -60,29 +60,6 @@ export default function UploadTab() {
 
   return (
     <div className="space-y-6">
-      {/* Status Banner */}
-      <div
-        className={`transition-all duration-700 delay-100 ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-        }`}
-      >
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border border-blue-200/50 dark:border-blue-800/30 rounded-2xl p-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl flex items-center justify-center">
-              <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-blue-800 dark:text-blue-200 text-sm">
-                Blockchain Secured Storage
-              </h3>
-              <p className="text-blue-600 dark:text-blue-300 text-xs">
-                Your certificates are encrypted and stored immutably
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Upload Container */}
       <div
         className={`transition-all duration-700 delay-200 ${
