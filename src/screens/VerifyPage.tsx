@@ -7,7 +7,7 @@ import { useCertificateStore } from "@/store/certificateStore";
 import { useState, useEffect } from "react";
 import { CheckCircle, Search } from "lucide-react";
 import { useGetCertificateMetadata } from "@/hooks/useGetMetadata";
-import { LayoutPage } from "@/components/shared/layout";
+import { LayoutPage } from "@/layouts/layout";
 
 export default function VerifyPage() {
   const { mutate, data, isPending } = useVerifyCertificate();
@@ -43,7 +43,7 @@ export default function VerifyPage() {
           console.log(data);
         },
         onError: () => toast.error("Verification failed"),
-      },
+      }
     );
   };
 
@@ -92,7 +92,6 @@ export default function VerifyPage() {
           )}
         </div>
       </div>
-
       {/* Results Section */}
       {data && (
         <div

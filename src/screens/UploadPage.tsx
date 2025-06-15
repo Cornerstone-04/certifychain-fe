@@ -4,7 +4,7 @@ import UploadResult from "@/components/upload/upload-result";
 import { useCertificateUpload } from "@/hooks/useCertificateUpload";
 import { useState, useEffect } from "react";
 import { Upload, CheckCircle } from "lucide-react";
-import { LayoutPage } from "@/components/shared/layout";
+import { LayoutPage } from "@/layouts/layout";
 
 export default function UploadPage() {
   const { handleUpload, isUploading, cid, isUploadingMetadata } =

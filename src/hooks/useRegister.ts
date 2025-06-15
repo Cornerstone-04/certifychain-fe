@@ -1,4 +1,3 @@
-// src/hooks/useRegister.ts
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import {
   createUserWithEmailAndPassword,
@@ -6,14 +5,14 @@ import {
   User,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { auth, db } from "@/lib/firebase"; // Import db for Firestore
+import { auth, db } from "@/lib/firebase"; 
 import { toast } from "sonner";
-import { doc, setDoc } from "firebase/firestore"; // Import setDoc for Firestore
+import { doc, setDoc } from "firebase/firestore"; 
 
 interface RegisterData {
   email: string;
   password: string;
-  universityName: string; // Changed from firstName, lastName
+  universityName: string; 
 }
 
 export const useRegister = (): UseMutationResult<
