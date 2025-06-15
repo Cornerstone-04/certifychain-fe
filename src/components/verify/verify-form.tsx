@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import useGetMetadata from "@/hooks/useGetMetadata";
+import { useGetCertificateMetadata } from "@/hooks/useGetMetadata";
 
 type VerifyFormProps = {
   onSubmit: (cid: string) => void;
@@ -11,7 +11,7 @@ type VerifyFormProps = {
 
 export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
   const [hash, setHash] = useState("");
-  const { refetch, data } = useGetMetadata(hash);
+  const { refetch, data } = useGetCertificateMetadata(hash);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();

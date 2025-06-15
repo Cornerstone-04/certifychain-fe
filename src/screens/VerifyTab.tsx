@@ -5,12 +5,17 @@ import { toast } from "sonner";
 import { useCertificateStore } from "@/store/certificateStore";
 import { useState, useEffect } from "react";
 import { CheckCircle, Search } from "lucide-react";
+import { useGetCertificateMetadata } from "@/hooks/useGetMetadata";
 export default function VerifyTab() {
   const { mutate, data, isPending } = useVerifyCertificate();
   const { addVerification } = useCertificateStore();
   const [isVisible, setIsVisible] = useState(false);
   const [hasResult, setHasResult] = useState(false);
+  const [currentCid, setCurrentCid] = useState<string | null>(null);
+  const { data: metadata, isLoading: isLoadingMetadata } =
+    useGetCertificateMetadata(currentCid);
 
+  console.log(metadata);
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -22,20 +27,18 @@ export default function VerifyTab() {
   }, [data]);
 
   const handleSubmit = (cid: string) => {
+    setCurrentCid(cid);
     mutate(cid, {
       onSuccess: (data) => {
-        if (data?.isSuccess) {
-          toast.success("Verification successful");
-          addVerification({
-            name: "Verified Certificate",
-            cid,
-            timestamp: new Date().toISOString(),
-          });
-        } else {
-          toast.error(data?.message || "Verification failed");
-        }
+        toast.success("Verification successful");
+        addVerification({
+          name: "Verified Certificate",
+          cid,
+          timestamp: new Date().toISOString(),
+        });
+        console.log(data);
       },
-      onError: () => toast.error("Request failed"),
+      onError: () => toast.error("Verification failed"),
     });
   };
 
