@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { CheckCircle, Search } from "lucide-react";
 import { useGetCertificateMetadata } from "@/hooks/useGetMetadata";
 import { LayoutPage } from "@/layouts/layout";
+import VerifiedResult from "@/components/verify/verified-result";
 
 export default function VerifyPage() {
   const { mutate, data, isPending } = useVerifyCertificate();
@@ -117,7 +118,7 @@ export default function VerifyPage() {
             </div>
 
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
-              {/* <VerifiedResult file={JSON.stringify(data.file, null)} /> */}
+              <VerifiedResult file={JSON.stringify(data, null)} />
             </div>
           </div>
         </div>
