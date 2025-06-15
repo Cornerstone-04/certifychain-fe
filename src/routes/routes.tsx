@@ -13,7 +13,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Landing />,
+        element: (
+          <GuestGuard>
+            <Landing />
+          </GuestGuard>
+        ),
       },
       {
         path: "register",
