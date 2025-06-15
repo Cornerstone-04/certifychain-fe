@@ -1,31 +1,35 @@
 import React from "react";
-import { Header as HomeHeader } from "@/components/home/header";
-import { FloatingParticles } from "@/components/shared/floating-particles"; // Import FloatingParticles
-import { AnimatedBackground } from "@/components/shared/animated-background.tsx"; // Import AnimatedBackground
+import { FloatingParticles } from "@/components/shared/floating-particles";
+import { AnimatedBackground } from "@/components/shared/animated-background";
+import { AppHeader } from "@/components/shared/app-header"; // Import AppHeader
+import { useAuthStatus } from "@/hooks/useAuth"; // Import useAuthStatus
 
 interface LayoutPageProps {
   children: React.ReactNode;
-  isAuthenticated?: boolean;
-  className?: string;
-  showAuthHeader?: boolean;
+  className?: string; // To allow custom styling for the inner content div if needed
 }
 
 export const LayoutPage: React.FC<LayoutPageProps> = ({
   children,
-  isAuthenticated = false,
   className = "",
-  showAuthHeader = false,
 }) => {
+  const { user, loading, role } = useAuthStatus(); // Use the auth status hook
+
+  // Determine if user is authenticated and their role once loading is complete
+  const isAuthenticated = !loading && !!user;
+  const userRole = role;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-950 dark:to-indigo-950 text-gray-800 dark:text-white overflow-hidden">
-      <AnimatedBackground /> {/* Add Animated Background to the layout */}
-      {showAuthHeader && isAuthenticated && <HomeHeader isVisible={true} />}
+      <AnimatedBackground />
+      {/* Render AppHeader with auth status and role */}
+      <AppHeader isAuthenticated={isAuthenticated} userRole={userRole} />
       <div
         className={`relative flex items-start justify-center p-4 pt-8 ${className}`}
       >
         {children}
       </div>
-      <FloatingParticles /> {/* Add Floating Particles to the layout */}
+      <FloatingParticles />
     </div>
   );
 };

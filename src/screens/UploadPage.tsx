@@ -16,7 +16,11 @@ export default function UploadPage() {
   }, []);
 
   return (
-    <LayoutPage isAuthenticated showAuthHeader>
+    <LayoutPage
+      isAuthenticated
+      showAuthHeader
+      className="flex flex-col md:flex-row gap-4"
+    >
       {" "}
       {/* Removed className="w-full max-w-2xl" here */}
       {/* Apply width and centering directly to the main content container */}
