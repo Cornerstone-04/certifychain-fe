@@ -1,19 +1,19 @@
 import { useVerifyCertificate } from "@/hooks/useVerifyCertificate";
 import VerifyForm from "@/components/verify/verify-form";
-import VerifiedResult from "@/components/verify/verified-result";
+// import VerifiedResult from "@/components/verify/verified-result";
 import { toast } from "sonner";
 import { useCertificateStore } from "@/store/certificateStore";
 import { useState, useEffect } from "react";
 import { CheckCircle, Search } from "lucide-react";
 import { useGetCertificateMetadata } from "@/hooks/useGetMetadata";
+
 export default function VerifyTab() {
   const { mutate, data, isPending } = useVerifyCertificate();
   const { addVerification } = useCertificateStore();
   const [isVisible, setIsVisible] = useState(false);
   const [hasResult, setHasResult] = useState(false);
   const [currentCid, setCurrentCid] = useState<string | null>(null);
-  const { data: metadata, isLoading: isLoadingMetadata } =
-    useGetCertificateMetadata(currentCid);
+  const { data: metadata } = useGetCertificateMetadata(currentCid);
 
   console.log(metadata);
   useEffect(() => {
@@ -21,25 +21,28 @@ export default function VerifyTab() {
   }, []);
 
   useEffect(() => {
-    if (data?.file) {
+    if (data) {
       setHasResult(true);
     }
   }, [data]);
 
   const handleSubmit = (cid: string) => {
     setCurrentCid(cid);
-    mutate(cid, {
-      onSuccess: (data) => {
-        toast.success("Verification successful");
-        addVerification({
-          name: "Verified Certificate",
-          cid,
-          timestamp: new Date().toISOString(),
-        });
-        console.log(data);
+    mutate(
+      { hash: cid, fileType: metadata?.fileType },
+      {
+        onSuccess: (data) => {
+          toast.success("Verification successful");
+          addVerification({
+            name: "Verified Certificate",
+            cid,
+            timestamp: new Date().toISOString(),
+          });
+          console.log(data);
+        },
+        onError: () => toast.error("Verification failed"),
       },
-      onError: () => toast.error("Verification failed"),
-    });
+    );
   };
 
   return (
@@ -90,7 +93,7 @@ export default function VerifyTab() {
       </div>
 
       {/* Results Section */}
-      {data?.file && (
+      {data && (
         <div
           className={`transition-all duration-700 delay-300 ${
             hasResult
@@ -116,7 +119,7 @@ export default function VerifyTab() {
 
             {/* Enhanced Result Display */}
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
-              <VerifiedResult file={JSON.stringify(data.file, null)} />
+              {/* <VerifiedResult file={JSON.stringify(data.file, null)} /> */}
             </div>
           </div>
         </div>
