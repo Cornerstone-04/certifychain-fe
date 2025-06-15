@@ -1,7 +1,7 @@
 // src/screens/VerifyPage.tsx
 import { useVerifyCertificate } from "@/hooks/useVerifyCertificate";
 import VerifyForm from "@/components/verify/verify-form";
-import VerifiedResult from "@/components/verify/verified-result";
+// import VerifiedResult from "@/components/verify/verified-result";
 import { toast } from "sonner";
 import { useCertificateStore } from "@/store/certificateStore";
 import { useState, useEffect } from "react";
@@ -15,8 +15,7 @@ export default function VerifyPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [hasResult, setHasResult] = useState(false);
   const [currentCid, setCurrentCid] = useState<string | null>(null);
-  const { data: metadata, isLoading: isLoadingMetadata } =
-    useGetCertificateMetadata(currentCid);
+  const { data: metadata } = useGetCertificateMetadata(currentCid);
 
   console.log(metadata);
   useEffect(() => {
@@ -24,25 +23,28 @@ export default function VerifyPage() {
   }, []);
 
   useEffect(() => {
-    if (data?.file) {
+    if (data) {
       setHasResult(true);
     }
   }, [data]);
 
   const handleSubmit = (cid: string) => {
     setCurrentCid(cid);
-    mutate(cid, {
-      onSuccess: (data) => {
-        toast.success("Verification successful");
-        addVerification({
-          name: "Verified Certificate",
-          cid,
-          timestamp: new Date().toISOString(),
-        });
-        console.log(data);
+    mutate(
+      { hash: cid, fileType: metadata?.fileType },
+      {
+        onSuccess: (data) => {
+          toast.success("Verification successful");
+          addVerification({
+            name: "Verified Certificate",
+            cid,
+            timestamp: new Date().toISOString(),
+          });
+          console.log(data);
+        },
+        onError: () => toast.error("Verification failed"),
       },
-      onError: () => toast.error("Verification failed"),
-    });
+    );
   };
 
   return (
@@ -90,8 +92,9 @@ export default function VerifyPage() {
           )}
         </div>
       </div>
-      {data?.file && (
-        // Apply width and centering to the result section as well
+
+      {/* Results Section */}
+      {data && (
         <div
           className={`w-full max-w-2xl mx-auto transition-all duration-700 delay-300 ${
             hasResult
@@ -115,7 +118,7 @@ export default function VerifyPage() {
             </div>
 
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
-              <VerifiedResult file={JSON.stringify(data.file, null)} />
+              {/* <VerifiedResult file={JSON.stringify(data.file, null)} /> */}
             </div>
           </div>
         </div>
