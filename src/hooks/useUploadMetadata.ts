@@ -26,7 +26,7 @@ export const useUploadMetadata = () => {
         fileName: fileName,
         fileType: fileType,
         matricNo: matricNo,
-        uploadedAt: Timestamp,
+        uploadedAt: Timestamp.now(),
       });
       return { success: true };
     },

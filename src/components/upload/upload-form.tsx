@@ -39,8 +39,6 @@ export default function UploadForm({ onSubmit }: UploadFormProps) {
     setLoading(true);
 
     try {
-      console.log("converted to base64");
-
       const uploadToastId = toast.loading("Uploading certificate.");
       await onSubmit({
         name: certificateName.trim(),

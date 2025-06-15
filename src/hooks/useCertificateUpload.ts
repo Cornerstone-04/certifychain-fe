@@ -13,7 +13,7 @@ interface UploadFields {
 
 export function useCertificateUpload() {
   const uploadFile = useUploadCertificate();
-  const uploadMetadata = useUploadMetadata();
+  const { mutate } = useUploadMetadata();
   const { addUpload } = useCertificateStore();
 
   const [isUploading, setIsUploading] = useState(false);
@@ -34,6 +34,22 @@ export function useCertificateUpload() {
       const result = await uploadFile.mutateAsync(formData);
       const cid = result?.data?.cid;
 
+      mutate(
+        {
+          hash: cid,
+          name: fullName,
+          matricNo,
+          fileName: file.name,
+          fileType: file.type,
+        },
+        {
+          onSuccess: () => {
+            console.log("uploaded metadata to firebase");
+          },
+          onError: (err) => console.log(err),
+        },
+      );
+
       if (!cid) throw new Error("CID not returned");
 
       // Save to local store
@@ -44,7 +60,8 @@ export function useCertificateUpload() {
       });
 
       // Save metadata to Firestore
-      uploadMetadata.mutate({
+      //
+      mutate({
         hash: cid,
         name: fullName,
         fileName: file.name,
