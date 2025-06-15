@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { useCertificateStore } from "@/store/certificateStore";
 import { useState, useEffect } from "react";
 import { CheckCircle, Search } from "lucide-react";
-
 export default function VerifyTab() {
   const { mutate, data, isPending } = useVerifyCertificate();
   const { addVerification } = useCertificateStore();

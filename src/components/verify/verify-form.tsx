@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import useGetMetadata from "@/hooks/useGetMetadata";
 
 type VerifyFormProps = {
   onSubmit: (cid: string) => void;
@@ -10,14 +11,19 @@ type VerifyFormProps = {
 
 export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
   const [hash, setHash] = useState("");
+  const { refetch, data } = useGetMetadata(hash);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const trimmedHash = hash.trim();
     if (!trimmedHash) {
       toast.warning("Please enter a valid CID.");
       return;
     }
+    await refetch({
+      throwOnError: true,
+    });
+    console.log(data);
     onSubmit(trimmedHash);
   };
 
