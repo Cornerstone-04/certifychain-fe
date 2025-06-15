@@ -1,14 +1,17 @@
-import { CopyButton } from "@/components/ui/copy-button";
 import { FaCircleCheck, FaDownload } from "react-icons/fa6";
 
-export default function VerifiedResult({ file }: { file: string }) {
-  const mimeMatch = file.match(/^data:(.*?);base64,/);
-  const mime = mimeMatch?.[1] || "application/octet-stream";
-
+export default function VerifiedResult({
+  file,
+  filename = "example",
+}: {
+  file: Blob;
+  filename?: string;
+}) {
   function downloadFile() {
     const link = document.createElement("a");
-    link.href = file;
-    link.download = `certificate.${mime.split("/")[1] || "bin"}`;
+    const _ = window.URL.createObjectURL(file);
+    link.href = _;
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -20,8 +23,6 @@ export default function VerifiedResult({ file }: { file: string }) {
         <p className="font-medium flex gap-1 items-center text-green-800">
           <FaCircleCheck /> Certificate Verified
         </p>
-
-        <CopyButton value={file} />
       </div>
 
       <button

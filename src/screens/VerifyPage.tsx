@@ -44,7 +44,7 @@ export default function VerifyPage() {
           console.log(data);
         },
         onError: () => toast.error("Verification failed"),
-      }
+      },
     );
   };
 
@@ -118,7 +118,11 @@ export default function VerifyPage() {
             </div>
 
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
-              <VerifiedResult file={JSON.stringify(data, null)} />
+              {/* {console.log(typeof data.data)} */}
+              <VerifiedResult
+                file={data.data as Blob}
+                filename={metadata?.fileName}
+              />
             </div>
           </div>
         </div>

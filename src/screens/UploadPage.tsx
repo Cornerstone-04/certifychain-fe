@@ -17,8 +17,8 @@ export default function UploadPage() {
 
   return (
     <LayoutPage
-      isAuthenticated
-      showAuthHeader
+      // isAuthenticated
+      // showAuthHeader
       className="flex flex-col md:flex-row gap-4"
     >
       {" "}
