@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import { Upload, CheckCircle } from "lucide-react";
 
 export default function UploadTab() {
-  const { handleUpload, isUploading, cid } = useCertificateUpload();
+  const { handleUpload, isUploading, cid, isUploadingMetadata } =
+    useCertificateUpload();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -34,7 +35,10 @@ export default function UploadTab() {
           </div>
 
           <div className="space-y-6">
-            <UploadForm onSubmit={handleUpload} isLoading={isUploading} />
+            <UploadForm
+              onSubmit={handleUpload}
+              isLoading={isUploading || isUploadingMetadata}
+            />
           </div>
 
           {isUploading && (

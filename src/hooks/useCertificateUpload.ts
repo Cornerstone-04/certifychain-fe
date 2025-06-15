@@ -13,7 +13,7 @@ interface UploadFields {
 
 export function useCertificateUpload() {
   const uploadFile = useUploadCertificate();
-  const { mutate } = useUploadMetadata();
+  const { mutate, isPending: isUploadingMetadata } = useUploadMetadata();
   const { addUpload } = useCertificateStore();
 
   const [isUploading, setIsUploading] = useState(false);
@@ -84,5 +84,6 @@ export function useCertificateUpload() {
     handleUpload,
     isUploading,
     cid,
+    isUploadingMetadata,
   };
 }
