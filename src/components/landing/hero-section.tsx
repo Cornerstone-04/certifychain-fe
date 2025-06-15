@@ -1,4 +1,5 @@
-import { ArrowRight } from "lucide-react";
+// src/components/landing/hero-section.tsx
+import { ArrowRight, Upload } from "lucide-react"; // Import Upload icon
 import { useNavigate } from "react-router";
 import { Button } from "../ui/button";
 
@@ -30,17 +31,26 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           security that ensures authenticity and trust.
         </p>
         <div className="flex justify-center gap-4 flex-wrap animate-fade-in-up delay-600">
+          {/* Verify Certificate Button */}
           <Button
-            onClick={() => navigate("/register")}
-            className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 hover:scale-105 hover:shadow-2xl group rounded-xl"
+            onClick={() => navigate("/verify")}
+            className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 transition-all duration-300 hover:scale-105 hover:shadow-2xl group rounded-xl"
           >
-            Get Started
+            Verify Certificate
             <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+          </Button>
+
+          {/* New Upload Certificate Button */}
+          <Button
+            onClick={() => navigate("/admin/upload")}
+            variant="outline" // Use outline variant for secondary action
+            className="px-8 py-4 text-lg font-semibold text-blue-600 border-blue-500/50 hover:text-white hover:bg-blue-500 hover:border-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl group rounded-xl"
+          >
+            Upload Certificate
+            <Upload className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-y-0.5" />
           </Button>
         </div>
       </div>
-
-      
     </section>
   );
 }

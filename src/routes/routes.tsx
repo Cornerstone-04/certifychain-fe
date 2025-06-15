@@ -1,10 +1,12 @@
+// src/routes/routes.tsx
 import Error404 from "@/screens/Error404";
-import Home from "@/screens/Home";
 import { createBrowserRouter } from "react-router";
 import Landing from "@/screens/landing/Landing";
 import RegisterPage from "@/screens/auth/Register";
 import LoginPage from "@/screens/auth/Login";
-import { AuthGuard, GuestGuard } from "./AuthGuard";
+import UploadTab from "@/screens/UploadPage"; // Import UploadTab directly
+import VerifyTab from "@/screens/VerifyPage"; // Import VerifyTab directly
+import { AdminGuard } from "./AuthGuard"; // Import AdminGuard
 
 export const router = createBrowserRouter([
   {
@@ -13,34 +15,26 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: (
-          <GuestGuard>
-            <Landing />
-          </GuestGuard>
-        ),
+        element: <Landing />, // Landing page is public
       },
       {
-        path: "register",
-        element: (
-          <GuestGuard>
-            <RegisterPage />
-          </GuestGuard>
-        ),
+        path: "admin/login",
+        element: <LoginPage />, // Login page (for admin access)
       },
       {
-        path: "login",
-        element: (
-          <GuestGuard>
-            <LoginPage />
-          </GuestGuard>
-        ),
+        path: "register", // Keeping register for now (e.g., initial admin setup)
+        element: <RegisterPage />,
       },
       {
-        path: "home",
+        path: "verify",
+        element: <VerifyTab />, // Public verification page
+      },
+      {
+        path: "admin/upload", // Admin-only upload page
         element: (
-          <AuthGuard>
-            <Home />
-          </AuthGuard>
+          <AdminGuard>
+            <UploadTab />
+          </AdminGuard>
         ),
       },
     ],

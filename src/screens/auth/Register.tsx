@@ -1,3 +1,4 @@
+// src/screens/auth/Register.tsx
 import { ChangeEvent, FormEvent, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,8 +15,7 @@ const RegisterPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    universityName: "", // Changed from firstName, lastName
     email: "",
     password: "",
   });
@@ -39,9 +39,17 @@ const RegisterPage = () => {
       toast.error("Please choose a stronger password.");
       return;
     }
-    registerMutation.mutate(formData, {
-      onSuccess: () => navigate("/home"),
-    });
+    // Updated data sent to mutate
+    registerMutation.mutate(
+      {
+        email: formData.email,
+        password: formData.password,
+        universityName: formData.universityName,
+      },
+      {
+        onSuccess: () => navigate("/admin/upload"), // Redirect to admin upload page after successful registration
+      }
+    );
   };
 
   return (
@@ -57,41 +65,27 @@ const RegisterPage = () => {
               <FaArrowLeft />
             </Button>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex justify-center items-center">
-              Create Your Account
+              Register Admin Account
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Get started today
+              For your university/institution
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  First Name
-                </label>
-                <Input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  placeholder="John"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Last Name
-                </label>
-                <Input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  placeholder="Doe"
-                  required
-                />
-              </div>
+            {/* Replaced first and last name with University Name */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                University/Institution Name
+              </label>
+              <Input
+                type="text"
+                name="universityName"
+                value={formData.universityName}
+                onChange={handleInputChange}
+                placeholder="e.g., University of Lagos"
+                required
+              />
             </div>
 
             <div className="space-y-2">
@@ -105,7 +99,7 @@ const RegisterPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="you@example.com"
+                  placeholder="admin@youruniversity.edu"
                   className="pl-10 h-12"
                   required
                 />
@@ -164,16 +158,16 @@ const RegisterPage = () => {
               disabled={registerMutation.status === "pending"}
             >
               {registerMutation.status === "pending"
-                ? "Creating..."
-                : "Create Account"}
+                ? "Registering..."
+                : "Create Admin Account"}
             </Button>
           </form>
 
           <div className="text-center mt-8">
             <p className="text-gray-600 dark:text-gray-400">
-              Already have an account?{" "}
+              Already have an admin account?{" "}
               <Link
-                to="/login"
+                to="/admin/login" // Updated link to admin login
                 className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
               >
                 Sign in here

@@ -1,3 +1,4 @@
+// src/components/landing/header-section.tsx
 import { Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
@@ -21,12 +22,13 @@ export default function Header({ isVisible }: { isVisible: boolean }) {
       </div>
       <div className="flex gap-3">
         <ModeToggle />
-        <Link to="/login">
+        {/* Changed to "Admin Login" and links to /login */}
+        <Link to="/admin/login">
           <Button
             variant="outline"
             className="border-blue-500/50 text-blue-600 hover:text-white hover:bg-blue-500 hover:border-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm bg-white/80 dark:bg-gray-800/80"
           >
-            Login
+            Admin Login
             <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </Link>

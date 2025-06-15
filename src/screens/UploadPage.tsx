@@ -1,10 +1,12 @@
+// src/screens/UploadPage.tsx
 import UploadForm from "@/components/upload/upload-form";
 import UploadResult from "@/components/upload/upload-result";
 import { useCertificateUpload } from "@/hooks/useCertificateUpload";
 import { useState, useEffect } from "react";
 import { Upload, CheckCircle } from "lucide-react";
+import { LayoutPage } from "@/components/shared/layout";
 
-export default function UploadTab() {
+export default function UploadPage() {
   const { handleUpload, isUploading, cid, isUploadingMetadata } =
     useCertificateUpload();
   const [isVisible, setIsVisible] = useState(false);
@@ -14,9 +16,12 @@ export default function UploadTab() {
   }, []);
 
   return (
-    <div className="space-y-6">
+    <LayoutPage isAuthenticated showAuthHeader>
+      {" "}
+      {/* Removed className="w-full max-w-2xl" here */}
+      {/* Apply width and centering directly to the main content container */}
       <div
-        className={`transition-all duration-700 delay-200 ${
+        className={`w-full max-w-2xl mx-auto transition-all duration-700 delay-200 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         }`}
       >
@@ -52,7 +57,6 @@ export default function UploadTab() {
                 </div>
               </div>
 
-              {/* Progress Animation */}
               <div className="mt-3 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full h-1.5">
                 <div
                   className="bg-gradient-to-r from-blue-500 to-indigo-500 h-1.5 rounded-full animate-pulse"
@@ -63,11 +67,10 @@ export default function UploadTab() {
           )}
         </div>
       </div>
-
       {cid && (
-        <div className="">
+        // Apply width and centering to the result section as well
+        <div className="w-full max-w-2xl mx-auto">
           <div className="bg-gradient-to-br from-green-50/80 to-emerald-50/80 dark:from-green-950/40 dark:to-emerald-950/40 backdrop-blur-sm border border-green-200/50 dark:border-green-800/30 rounded-2xl p-6 shadow-lg">
-            {/* Success Header */}
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
                 <CheckCircle className="w-6 h-6 text-white" />
@@ -79,13 +82,12 @@ export default function UploadTab() {
               </div>
             </div>
 
-            {/* Enhanced Result Display */}
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
               <UploadResult cid={cid} />
             </div>
           </div>
         </div>
       )}
-    </div>
+    </LayoutPage>
   );
 }
