@@ -11,7 +11,12 @@ type VerifyFormProps = {
 
 export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
   const [hash, setHash] = useState("");
-  const { refetch, data } = useGetCertificateMetadata(hash);
+  const [matric_no, setMatric] = useState("");
+  const {
+    refetch,
+    data,
+    isFetching: isFetchingMetadata,
+  } = useGetCertificateMetadata(hash);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -23,12 +28,23 @@ export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
     await refetch({
       throwOnError: true,
     });
-    console.log(data);
-    onSubmit(trimmedHash);
+
+    if (data?.matricNo !== matric_no)
+      toast.error("Invalid inputs", { description: "Matric number mismatch" });
+    else onSubmit(trimmedHash);
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 w-full">
+      <Input
+        value={matric_no}
+        onChange={(e) => setMatric(e.target.value)}
+        placeholder="Enter student Matric-no."
+        className="text-sm"
+        autoFocus
+        required
+      />
+
       <Input
         value={hash}
         onChange={(e) => setHash(e.target.value)}
@@ -41,7 +57,9 @@ export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
         disabled={isPending}
         className="w-full bg-blue-500 hover:bg-blue-700"
       >
-        {isPending ? "Verifying..." : "Verify Certificate"}
+        {isPending || isFetchingMetadata
+          ? "Verifying..."
+          : "Verify Certificate"}
       </Button>
     </form>
   );
