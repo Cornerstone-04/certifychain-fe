@@ -76,7 +76,10 @@ export default function UploadPage() {
       </div>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="w-full max-w-[95vw] sm:max-w-2xl lg:max-w-3xl max-h-[90vh] overflow-hidden p-0">
+        <DialogContent
+          className="w-full max-w-[95vw] sm:max-w-2xl lg:max-w-3xl max-h-[90vh] overflow-hidden p-0"
+          onInteractOutside={(e) => e.preventDefault()}
+        >
           <div className="bg-gradient-to-br from-green-50/80 to-emerald-50/80 dark:from-green-950/40 dark:to-emerald-950/40 backdrop-blur-sm border-0 rounded-2xl overflow-hidden">
             {/* Header */}
             <DialogHeader className="px-4 sm:px-6 py-4 border-b border-green-200/30 dark:border-green-700/30">
