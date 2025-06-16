@@ -1,10 +1,20 @@
+// src/components/shared/app-header.tsx
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/shared/mode-toggle";
 import { LogoutButton } from "@/components/shared/logout-button";
-import { ArrowRight, Shield, Upload, Search, Menu, X } from "lucide-react";
+import {
+  ArrowRight,
+  Shield,
+  Upload,
+  Search,
+  Menu,
+  X,
+  Wallet,
+} from "lucide-react"; // Import Wallet icon
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useWeb3 } from "@/context/web3context"; // Import useWeb3 hook
 
 interface AppHeaderProps {
   isAuthenticated: boolean;
@@ -13,6 +23,7 @@ interface AppHeaderProps {
 
 export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { account, connectWallet, disconnectWallet, isLoadingWeb3 } = useWeb3(); // Use web3 context
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
 
@@ -66,6 +77,31 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                 )}
                 <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
                   <ModeToggle />
+                  {account ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={disconnectWallet}
+                      disabled={isLoadingWeb3}
+                      className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                    >
+                      {isLoadingWeb3
+                        ? "Connecting..."
+                        : `Connected: ${account.substring(0, 4)}...`}
+                      <Wallet className="w-4 h-4 ml-2" />
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={connectWallet}
+                      disabled={isLoadingWeb3}
+                      className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                    >
+                      {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
+                      <Wallet className="w-4 h-4 ml-2" />
+                    </Button>
+                  )}
                   <LogoutButton />
                 </div>
               </>
@@ -81,6 +117,31 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                     Verify Certificate
                   </Button>
                 </Link>
+                {account ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={disconnectWallet}
+                    disabled={isLoadingWeb3}
+                    className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                  >
+                    {isLoadingWeb3
+                      ? "Connecting..."
+                      : `Connected: ${account.substring(0, 4)}...`}
+                    <Wallet className="w-4 h-4 ml-2" />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={connectWallet}
+                    disabled={isLoadingWeb3}
+                    className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                  >
+                    {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
+                    <Wallet className="w-4 h-4 ml-2" />
+                  </Button>
+                )}
                 <Link to="/admin/login">
                   <Button
                     variant="outline"
@@ -91,6 +152,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1" />
                   </Button>
                 </Link>
+                <ModeToggle />
               </div>
             )}
           </nav>
@@ -150,6 +212,37 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                         </Link>
                       </>
                     )}
+                    {account ? (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          disconnectWallet();
+                          toggleMobileMenu();
+                        }}
+                        disabled={isLoadingWeb3}
+                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                      >
+                        {isLoadingWeb3
+                          ? "Connecting..."
+                          : `Connected: ${account.substring(0, 4)}...`}
+                        <Wallet className="w-4 h-4 ml-2" />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          connectWallet();
+                          toggleMobileMenu();
+                        }}
+                        disabled={isLoadingWeb3}
+                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                      >
+                        {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
+                        <Wallet className="w-4 h-4 ml-2" />
+                      </Button>
+                    )}
                     <div className="pt-3 border-t border-border">
                       <LogoutButton />
                     </div>
@@ -166,6 +259,37 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                         Verify Certificate
                       </Button>
                     </Link>
+                    {account ? (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          disconnectWallet();
+                          toggleMobileMenu();
+                        }}
+                        disabled={isLoadingWeb3}
+                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                      >
+                        {isLoadingWeb3
+                          ? "Connecting..."
+                          : `Connected: ${account.substring(0, 4)}...`}
+                        <Wallet className="w-4 h-4 ml-2" />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          connectWallet();
+                          toggleMobileMenu();
+                        }}
+                        disabled={isLoadingWeb3}
+                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                      >
+                        {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
+                        <Wallet className="w-4 h-4 ml-2" />
+                      </Button>
+                    )}
                     <Link to="/admin/login" onClick={toggleMobileMenu}>
                       <Button
                         variant="outline"
