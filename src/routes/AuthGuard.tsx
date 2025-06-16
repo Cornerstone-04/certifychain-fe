@@ -13,11 +13,11 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 }
 
 export function GuestGuard({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuthStatus();
+  const { user, loading, role } = useAuthStatus();
 
   if (loading) return <Loading />;
-  // redirect user from public screens if already authenticated
-  if (user) return <Navigate to="/admin/upload" replace />;
+  if (user && role === "admin") return <Navigate to="/admin/upload" replace />;
+  if (user) return <Navigate to="/verify" replace />;
 
   return <>{children}</>;
 }
@@ -27,7 +27,6 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   if (loading) return <Loading />;
-  // If not authrnticated, redirect to /admin/login page
   if (!user || role !== "admin") {
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }

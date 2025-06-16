@@ -1,4 +1,3 @@
-// src/components/landing/header-section.tsx
 import { Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
