@@ -1,5 +1,4 @@
 import React from "react";
-import { FloatingParticles } from "@/components/shared/floating-particles";
 import { AnimatedBackground } from "@/components/shared/animated-background";
 import { AppHeader } from "@/components/shared/app-header";
 import { useAuthStatus } from "@/hooks/useAuth";
@@ -29,7 +28,6 @@ export const LayoutPage: React.FC<LayoutPageProps> = ({
       >
         {children}
       </div>
-      <FloatingParticles />
     </div>
   );
 };
