@@ -27,16 +27,17 @@ export const LogoutButton = () => {
         <Button
           variant="outline"
           size="icon"
-          className="border-red-300/50 hover:border-red-400/50 hover:bg-red-50/50 dark:hover:bg-red-950/50 transition-all duration-300 backdrop-blur-sm bg-white/60 dark:bg-gray-800/60 text-red-600 hover:text-red-700"
+          className="group border-red-300/50 text-red-600 hover:border-red-500 hover:text-white hover:bg-gradient-to-tr from-red-500 to-rose-500 dark:hover:from-red-600 dark:hover:to-red-700 transition-all duration-300 rounded-md backdrop-blur-sm bg-white/60 dark:bg-gray-800/60"
         >
-          <LogOut className="w-4 h-4" />
+          <LogOut className="w-4 h-4 group-hover:rotate-[-10deg] transition-transform" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+
+      <DialogContent className="sm:max-w-md backdrop-blur-md bg-white/90 dark:bg-gray-900/80 rounded-lg shadow-xl">
         <DialogHeader>
-          <DialogTitle>Confirm Logout</DialogTitle>
-          <DialogDescription>
-            Are you sure you want to log out?
+          <DialogTitle className="text-red-700">Confirm Logout</DialogTitle>
+          <DialogDescription className="text-gray-600 dark:text-gray-300">
+            Are you sure you want to end your session?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex justify-end gap-2">
@@ -47,6 +48,7 @@ export const LogoutButton = () => {
             variant="destructive"
             onClick={handleConfirmLogout}
             disabled={logout.isPending}
+            className="transition-all !bg-red-700"
           >
             {logout.isPending ? "Logging out..." : "Log out"}
           </Button>

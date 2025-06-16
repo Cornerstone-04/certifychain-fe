@@ -55,7 +55,11 @@ export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
       <Button
         type="submit"
         disabled={isPending}
-        className="w-full bg-blue-500 hover:bg-blue-700"
+        className={`w-full text-white font-semibold transition-all duration-300 rounded-lg px-4 py-3 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 hover:shadow-[0_8px_24px_-4px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed ${
+          isPending || isFetchingMetadata
+            ? "animate-pulse"
+            : "hover:scale-[1.02]"
+        }`}
       >
         {isPending || isFetchingMetadata
           ? "Verifying..."
