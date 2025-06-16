@@ -8,7 +8,7 @@ Built with **React (TypeScript)**, styled with **TailwindCSS**, and enhanced usi
 
 ## 🌐 Live Preview
 
-If deployed, link would go here (e.g., `https://labeeb-fe.vercel.app/`)
+[https://labeeb-fe.vercel.app/](https://labeeb-fe.vercel.app/)
 
 ---
 
