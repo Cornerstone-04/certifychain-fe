@@ -14,7 +14,7 @@ const RegisterPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    universityName: "", // Changed from firstName, lastName
+    universityName: "", 
     email: "",
     password: "",
   });

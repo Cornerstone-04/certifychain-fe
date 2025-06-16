@@ -1,12 +1,11 @@
-// src/routes/routes.tsx
 import Error404 from "@/screens/Error404";
 import { createBrowserRouter } from "react-router";
 import Landing from "@/screens/landing/Landing";
 import RegisterPage from "@/screens/auth/Register";
 import LoginPage from "@/screens/auth/Login";
-import UploadTab from "@/screens/UploadPage"; // Import UploadTab directly
-import VerifyTab from "@/screens/VerifyPage"; // Import VerifyTab directly
-import { AdminGuard } from "./AuthGuard"; // Import AdminGuard
+import UploadTab from "@/screens/UploadPage"; 
+import VerifyTab from "@/screens/VerifyPage"; 
+import { AdminGuard } from "./AuthGuard"; 
 
 export const router = createBrowserRouter([
   {

@@ -11,7 +11,7 @@ interface AppHeaderProps {
 
 export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
   return (
-    <header className="relative w-full px-4 sm:px-10 py-6 flex items-center justify-between max-w-7xl mx-auto transition-all duration-1000">
+    <header className="relative w-full px-4 sm:px-10 py-6 flex items-center justify-between sm:max-w-11/12 mx-auto transition-all duration-1000">
       {/* Logo/Title */}
       <Link to="/" className="flex items-center space-x-2 group">
         <div className="relative">
@@ -25,10 +25,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
 
       {/* Navigation and Actions */}
       <div className="flex items-center gap-3">
-        <ModeToggle />
-
         {isAuthenticated ? (
-          // Authenticated User (Admin) Navigation
           <>
             {userRole === "admin" && (
               <>
@@ -50,10 +47,10 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                 </Link>
               </>
             )}
+            <ModeToggle />
             <LogoutButton />
           </>
         ) : (
-          // Public/Unauthenticated User Navigation
           <>
             <Link to="/verify">
               <Button

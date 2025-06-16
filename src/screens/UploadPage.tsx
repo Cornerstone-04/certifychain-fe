@@ -1,4 +1,3 @@
-// src/screens/UploadPage.tsx
 import UploadForm from "@/components/upload/upload-form";
 import UploadResult from "@/components/upload/upload-result";
 import { useCertificateUpload } from "@/hooks/useCertificateUpload";
@@ -16,14 +15,7 @@ export default function UploadPage() {
   }, []);
 
   return (
-    <LayoutPage
-      // isAuthenticated
-      // showAuthHeader
-      className="flex flex-col md:flex-row gap-4"
-    >
-      {" "}
-      {/* Removed className="w-full max-w-2xl" here */}
-      {/* Apply width and centering directly to the main content container */}
+    <LayoutPage className="flex flex-col md:flex-row gap-4">
       <div
         className={`w-full max-w-2xl mx-auto transition-all duration-700 delay-200 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"

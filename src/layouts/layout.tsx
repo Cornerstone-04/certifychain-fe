@@ -1,8 +1,8 @@
 import React from "react";
 import { FloatingParticles } from "@/components/shared/floating-particles";
 import { AnimatedBackground } from "@/components/shared/animated-background";
-import { AppHeader } from "@/components/shared/app-header"; // Import AppHeader
-import { useAuthStatus } from "@/hooks/useAuth"; // Import useAuthStatus
+import { AppHeader } from "@/components/shared/app-header";
+import { useAuthStatus } from "@/hooks/useAuth";
 
 interface LayoutPageProps {
   children: React.ReactNode;

@@ -1,7 +1,5 @@
-// src/screens/VerifyPage.tsx
 import { useVerifyCertificate } from "@/hooks/useVerifyCertificate";
 import VerifyForm from "@/components/verify/verify-form";
-// import VerifiedResult from "@/components/verify/verified-result";
 import { toast } from "sonner";
 import { useCertificateStore } from "@/store/certificateStore";
 import { useState, useEffect } from "react";
@@ -44,15 +42,12 @@ export default function VerifyPage() {
           console.log(data);
         },
         onError: () => toast.error("Verification failed"),
-      },
+      }
     );
   };
 
   return (
     <LayoutPage className="flex flex-col md:flex-row gap-4">
-      {" "}
-      {/* Removed className="w-full max-w-2xl" here */}
-      {/* Apply width and centering directly to the main content container */}
       <div
         className={`w-full max-w-2xl mx-auto transition-all duration-700 delay-200 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
@@ -118,7 +113,6 @@ export default function VerifyPage() {
             </div>
 
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
-              {/* {console.log(typeof data.data)} */}
               <VerifiedResult
                 file={data.data as Blob}
                 filename={metadata?.fileName}
