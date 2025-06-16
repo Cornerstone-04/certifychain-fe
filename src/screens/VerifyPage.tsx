@@ -6,14 +6,20 @@ import { useState, useEffect } from "react";
 import { CheckCircle, Search } from "lucide-react";
 import { useGetCertificateMetadata } from "@/hooks/useGetMetadata";
 import { LayoutPage } from "@/layouts/layout";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import VerifiedResult from "@/components/verify/verified-result";
 
 export default function VerifyPage() {
   const { mutate, data, isPending } = useVerifyCertificate();
   const { addVerification } = useCertificateStore();
   const [isVisible, setIsVisible] = useState(false);
-  const [hasResult, setHasResult] = useState(false);
   const [currentCid, setCurrentCid] = useState<string | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
   const { data: metadata } = useGetCertificateMetadata(currentCid);
 
   console.log(metadata);
@@ -21,29 +27,28 @@ export default function VerifyPage() {
     setIsVisible(true);
   }, []);
 
-  useEffect(() => {
-    if (data) {
-      setHasResult(true);
-    }
-  }, [data]);
-
   const handleSubmit = (cid: string) => {
     setCurrentCid(cid);
     mutate(
       { hash: cid, fileType: metadata?.fileType },
       {
-        onSuccess: (data) => {
+        onSuccess: () => {
           toast.success("Verification successful");
           addVerification({
             name: "Verified Certificate",
             cid,
             timestamp: new Date().toISOString(),
           });
-          console.log(data);
+          setShowDialog(true);
         },
         onError: () => toast.error("Verification failed"),
       }
     );
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+    setCurrentCid(null);
   };
 
   return (
@@ -88,39 +93,54 @@ export default function VerifyPage() {
           )}
         </div>
       </div>
-      {/* Results Section */}
-      {data && (
-        <div
-          className={`w-full max-w-2xl mx-auto transition-all duration-700 delay-300 ${
-            hasResult
-              ? "translate-y-0 opacity-100 scale-100"
-              : "translate-y-4 opacity-0 scale-95"
-          }`}
-        >
-          <div className="bg-gradient-to-br from-green-50/80 to-emerald-50/80 dark:from-green-950/40 dark:to-emerald-950/40 backdrop-blur-sm border border-green-200/50 dark:border-green-800/30 rounded-2xl p-6 shadow-lg">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-white" />
+
+      {/* Verification Results Dialog */}
+      <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
+        <DialogContent className="w-full max-w-[95vw] sm:max-w-2xl lg:max-w-4xl max-h-[90vh] overflow-hidden p-0 bg-black/40 backdrop-blur-sm">
+          <div className="bg-gradient-to-br from-green-50/80 to-emerald-50/80 dark:from-green-950/40 dark:to-emerald-950/40 backdrop-blur-sm border-0 rounded-2xl overflow-hidden">
+            {/* Header */}
+            <DialogHeader className="px-4 sm:px-6 py-4 border-b border-green-200/30 dark:border-green-700/30">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <DialogTitle className="text-base sm:text-lg font-bold text-green-800 dark:text-green-200">
+                      Verification Successful
+                    </DialogTitle>
+                    <p className="text-sm text-green-600 dark:text-green-300">
+                      Certificate is authentic and verified
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-green-800 dark:text-green-200">
-                  Verification Successful
-                </h3>
-                <p className="text-green-600 dark:text-green-300 text-sm">
-                  Certificate is authentic and verified
-                </p>
+            </DialogHeader>
+
+            {/* Scrollable Content */}
+            <div className="px-4 sm:px-6 py-4 max-h-[calc(90vh-120px)] overflow-y-auto">
+              <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
+                <VerifiedResult
+                  name={metadata?.name}
+                  matricNo={metadata?.matricNo}
+                  file={data?.data as Blob}
+                  filename={metadata?.fileName}
+                />
               </div>
             </div>
 
-            <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/30 dark:border-green-700/30">
-              <VerifiedResult
-                file={data.data as Blob}
-                filename={metadata?.fileName}
-              />
+            {/* Footer */}
+            <div className="px-4 sm:px-6 py-4 border-t border-green-200/30 dark:border-green-700/30 bg-white/40 dark:bg-gray-800/40">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex items-center space-x-2 text-xs text-green-600 dark:text-green-400">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span>Verified on blockchain</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </LayoutPage>
   );
 }
