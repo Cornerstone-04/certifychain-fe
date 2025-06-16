@@ -19,7 +19,7 @@ export default function FeatureSection({ isVisible }: FeatureSectionProps) {
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full"></div>
       </div>
-      <div className="max-w-6xl mx-auto space-y-12">
+      <div className="max-w-6xl mx-auto space-y-8">
         {/* Feature Cards */}
         <div
           className={`grid grid-cols-1 md:grid-cols-3 gap-6 transform transition-all duration-700 ${
