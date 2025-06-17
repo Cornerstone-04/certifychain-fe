@@ -1,4 +1,3 @@
-// src/screens/VerifyPage.tsx
 import { useVerifyCertificate } from "@/hooks/useVerifyCertificate";
 import VerifyForm from "@/components/verify/verify-form";
 import { toast } from "sonner";
@@ -14,7 +13,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import VerifiedResult from "@/components/verify/verified-result";
-import { useWeb3 } from "@/context/web3context"; // Import useWeb3
+import { useWeb3 } from "@/hooks/useWeb3"; // Import useWeb3
 import { ethers } from "ethers";
 
 export default function VerifyPage() {
@@ -50,7 +49,7 @@ export default function VerifyPage() {
       try {
         blockchainCheckToastId = toast.loading(
           "Checking blockchain for CID...",
-          { id: "blockchainCheckToast" },
+          { id: "blockchainCheckToast" }
         );
         const ownerAddress = await contract.getOwnerOfCID(cid);
         if (ownerAddress && ownerAddress !== ethers.ZeroAddress) {
@@ -76,7 +75,7 @@ export default function VerifyPage() {
       }
     } else {
       toast.warning(
-        "Wallet not connected. Cannot perform on-chain verification.",
+        "Wallet not connected. Cannot perform on-chain verification."
       );
       setIsBlockchainVerified(false); // Assume not verified if wallet not connected
       // Optionally, return here if on-chain verification is mandatory
@@ -100,7 +99,7 @@ export default function VerifyPage() {
           toast.error("File content fetching failed.");
           console.error("File fetch error:", error);
         },
-      },
+      }
     );
   };
 
@@ -147,8 +146,8 @@ export default function VerifyPage() {
                     {isCheckingBlockchain
                       ? "Checking Blockchain Records..."
                       : isFetchingMetadata
-                        ? "Fetching Certificate Metadata..."
-                        : "Verifying Certificate..."}
+                      ? "Fetching Certificate Metadata..."
+                      : "Verifying Certificate..."}
                   </p>
                   {isCheckingBlockchain && (
                     <p className="text-blue-600 dark:text-blue-300 text-xs">

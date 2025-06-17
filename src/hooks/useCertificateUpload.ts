@@ -1,11 +1,9 @@
-// src/hooks/useCertificateUpload.ts
 import { useState } from "react";
 import { toast } from "sonner";
 import { useUploadCertificate } from "./useUploadCertificate";
 import { useUploadMetadata } from "./useUploadMetadata";
 import { useCertificateStore } from "@/store/certificateStore";
-import { useWeb3 } from "@/context/web3context"; // Import useWeb3
-
+import { useWeb3 } from "@/hooks/useWeb3";
 interface UploadFields {
   name: string;
   fullName: string;
@@ -87,7 +85,7 @@ export function useCertificateUpload() {
                 "Certificate is on IPFS and blockchain, but metadata saving to Firebase failed.",
             });
           },
-        },
+        }
       );
 
       // Save to local store (existing logic)
@@ -100,26 +98,28 @@ export function useCertificateUpload() {
       setCid(ipfsCid);
     } catch (error: unknown) {
       toast.dismiss(uploadToastId);
-      toast.dismiss("blockchainToast"); // Dismiss if blockchain interaction started but failed
+      toast.dismiss("blockchainToast");
+
       if (error instanceof Error) {
         toast.error(error.message || "Upload failed. Please try again.");
       } else if (
         typeof error === "object" &&
         error !== null &&
         "data" in error &&
-        typeof (error as Record<string, string>).data === "object" &&
-        (error as Record<string, string>).data !== null &&
-        "message" in (error as any).data
+        typeof (error as { data?: unknown }).data === "object" &&
+        error.data !== null &&
+        "message" in (error.data as Record<string, unknown>)
       ) {
-        // Ethers error structure for revert messages
+        const message = (error.data as { message?: string }).message;
         toast.error(
-          `Blockchain Transaction Failed: ${(error as any).data.message}`,
+          `Blockchain Transaction Failed: ${message ?? "Unknown error"}`
         );
       } else if (typeof error === "string") {
         toast.error(error);
       } else {
         toast.error("An unknown error occurred during upload.");
       }
+
       console.error("Upload error:", error);
     } finally {
       setIsUploading(false);

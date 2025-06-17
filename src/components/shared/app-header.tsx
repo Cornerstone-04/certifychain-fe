@@ -1,4 +1,3 @@
-// src/components/shared/app-header.tsx
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/shared/mode-toggle";
@@ -14,7 +13,7 @@ import {
 } from "lucide-react"; // Import Wallet icon
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useWeb3 } from "@/context/web3context"; // Import useWeb3 hook
+import { useWeb3 } from "@/hooks/useWeb3";
 
 interface AppHeaderProps {
   isAuthenticated: boolean;
