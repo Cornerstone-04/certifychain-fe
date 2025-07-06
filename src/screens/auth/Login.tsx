@@ -32,7 +32,7 @@ const LoginPage = () => {
 
     loginMutation.mutate(formData, {
       onSuccess: () => {
-        navigate("/admin/upload");
+        navigate("/admin/upload", { replace: true });
       },
     });
   };
