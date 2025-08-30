@@ -1,6 +1,6 @@
-# Blockchain-Based Certification System – Frontend
+# CertifyChain (Frontend) - Blockchain-Based Certification System
 
-This is the frontend for the **Blockchain-Based Certification System**, a decentralized application (dApp) that allows users to upload and verify certificates using IPFS (InterPlanetary File System).
+This is the frontend for the **CertifyChain**, a decentralised application (dApp) that allows users to upload and verify certificates using IPFS (InterPlanetary File System).
 
 Built with **React (TypeScript)**, styled with **TailwindCSS**, and enhanced using **ShadCN UI**, **Framer Motion**, and **React Query**, this project ensures a performant and user-friendly experience.
 
@@ -8,7 +8,7 @@ Built with **React (TypeScript)**, styled with **TailwindCSS**, and enhanced usi
 
 ## 🌐 Live Preview
 
-[https://labeeb-fe.vercel.app/](https://labeeb-fe.vercel.app/)
+[https://certifychain-fe.vercel.app/](https://certifychain-fe.vercel.app/)
 
 ---
 
@@ -18,7 +18,6 @@ Built with **React (TypeScript)**, styled with **TailwindCSS**, and enhanced usi
 - Verify files using CID and preview images, PDFs, or text.
 - Animated tab navigation and smooth UI transitions.
 - Real-time status feedback using toast notifications.
-<!-- - Persistent upload/verification history using Zustand. -->
 
 ---
 
@@ -84,6 +83,7 @@ pnpm lint
 
 - Ensure the backend is running locally on **port 3000** at [`http://localhost:3000`](http://localhost:3000).
 - The production backend is also live at [**labeeb-production.up.railway.app**](http://labeeb-production.up.railway.app).
+- Find the source code at [**CertifyChain backend**](https://github.com/Cornerstone-04/labeeb)
   All Axios requests are routed to this server unless overridden.
 
 A `.env` file is required in the root folder with the following content:
