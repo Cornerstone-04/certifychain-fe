@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ArrowUpRight, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 

@@ -1,6 +1,6 @@
 import { Shield, Upload, CheckCircle } from "lucide-react";
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 interface WhyChooseSectionProps {
   isVisible: boolean;

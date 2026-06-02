@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowRight,
   LogIn,
@@ -56,7 +56,11 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-300 bg-white/95 dark:border-zinc-800 dark:bg-[#090909]/95">
       <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="group flex items-center gap-3" onClick={closeMenu}>
+        <Link
+          to="/"
+          className="group flex items-center gap-3"
+          onClick={closeMenu}
+        >
           <motion.div
             whileHover={{ rotate: -8, scale: 1.05 }}
             transition={{ duration: 0.2 }}
@@ -82,7 +86,7 @@ export function Navbar() {
               className={cn(
                 navItemClass,
                 location.pathname === to &&
-                  "border-blue-600 text-blue-700 dark:border-blue-400 dark:text-blue-400"
+                  "border-blue-600 text-blue-700 dark:border-blue-400 dark:text-blue-400",
               )}
             >
               <Icon className="h-4 w-4" />
@@ -126,7 +130,11 @@ export function Navbar() {
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
-            {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {menuOpen ? (
+              <X className="h-4 w-4" />
+            ) : (
+              <Menu className="h-4 w-4" />
+            )}
           </Button>
         </div>
       </div>

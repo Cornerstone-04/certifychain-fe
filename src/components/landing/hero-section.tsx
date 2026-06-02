@@ -1,7 +1,7 @@
 import { ArrowRight, Upload } from "lucide-react"; // Import Upload icon
 import { useNavigate } from "react-router";
 import { Button } from "../ui/button";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 interface HeroSectionProps {
   isVisible: boolean;
@@ -18,10 +18,14 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
         transition={{ duration: 0.55, ease: "easeOut", delay: 0.12 }}
         className="mx-auto w-full max-w-6xl"
       >
-        <p className="fintech-kicker mb-5">Institutional verification rail / v1.0</p>
+        <p className="fintech-kicker mb-5">
+          Institutional verification rail / v1.0
+        </p>
         <h1 className="max-w-5xl text-5xl font-black uppercase leading-[0.95] tracking-[-0.075em] text-slate-950 dark:text-white md:text-8xl">
           Certificate integrity,
-          <span className="block text-blue-700 dark:text-blue-400">without ambiguity.</span>
+          <span className="block text-blue-700 dark:text-blue-400">
+            without ambiguity.
+          </span>
         </h1>
         <p className="mb-10 mt-8 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-zinc-400 md:text-lg">
           Issue and verify academic credentials using IPFS-backed records and

@@ -12,7 +12,7 @@ import {
   Wallet,
 } from "lucide-react"; // Import Wallet icon
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { useWeb3 } from "@/hooks/useWeb3";
 
 interface AppHeaderProps {
