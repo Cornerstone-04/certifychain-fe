@@ -8,16 +8,16 @@ interface FeatureSectionProps {
 
 export default function FeatureSection({ isVisible }: FeatureSectionProps) {
   return (
-    <section className="relative py-20 px-4 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 flex flex-col">
+    <section className="relative border-b border-slate-300 bg-white px-4 py-20 dark:border-zinc-800 dark:bg-[#0d0d0d] flex flex-col">
       <div
-        className={`text-center mb-16 transition-all duration-1000 delay-200 ${
+        className={`mx-auto mb-12 w-full max-w-6xl transition-all duration-700 delay-200 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-          Features
+        <p className="fintech-kicker mb-3">Core infrastructure</p>
+        <h2 className="text-3xl font-black uppercase tracking-[-0.055em] text-slate-950 dark:text-white md:text-5xl">
+          Built for verifiable records.
         </h2>
-        <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full"></div>
       </div>
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Feature Cards */}
@@ -30,19 +30,16 @@ export default function FeatureSection({ isVisible }: FeatureSectionProps) {
             icon={<FileText className="w-6 h-6" />}
             title="Multiple Formats"
             description="Supports PDF, PNG, JPG, and other common file types."
-            gradient="from-purple-500 to-pink-500"
           />
           <FeatureCard
             icon={<Shield className="w-6 h-6" />}
             title="Encrypted Storage"
             description="End-to-end encryption ensures your data is safe and private."
-            gradient="from-blue-500 to-cyan-500"
           />
           <FeatureCard
             icon={<Zap className="w-6 h-6" />}
             title="Instant Upload"
             description="Fast and reliable CID generation with seamless UX."
-            gradient="from-green-500 to-emerald-500"
           />
         </div>
 

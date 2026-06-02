@@ -1,6 +1,7 @@
 import { ArrowRight, Upload } from "lucide-react"; // Import Upload icon
 import { useNavigate } from "react-router";
 import { Button } from "../ui/button";
+import { motion } from "framer-motion";
 
 interface HeroSectionProps {
   isVisible: boolean;
@@ -10,30 +11,27 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
   const navigate = useNavigate();
 
   return (
-    <section className="relative text-center py-20 px-4 h-[90vh] flex flex-col justify-center">
-      <div
-        className={`transition-all duration-1000 delay-300 ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-        }`}
+    <section className="relative flex min-h-[78vh] flex-col justify-center border-b border-slate-300 px-4 py-20 dark:border-zinc-800">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : undefined}
+        transition={{ duration: 0.55, ease: "easeOut", delay: 0.12 }}
+        className="mx-auto w-full max-w-6xl"
       >
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-          <span className="inline-block animate-fade-in-up">
-            Blockchain-Powered
-          </span>
-          <br />
-          <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent inline-block animate-fade-in-up delay-200">
-            Certificate Verification
-          </span>
+        <p className="fintech-kicker mb-5">Institutional verification rail / v1.0</p>
+        <h1 className="max-w-5xl text-5xl font-black uppercase leading-[0.95] tracking-[-0.075em] text-slate-950 dark:text-white md:text-8xl">
+          Certificate integrity,
+          <span className="block text-blue-700 dark:text-blue-400">without ambiguity.</span>
         </h1>
-        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in-up delay-400">
-          Upload, verify, and manage certificates with tamper-proof blockchain
-          security that ensures authenticity and trust.
+        <p className="mb-10 mt-8 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-zinc-400 md:text-lg">
+          Issue and verify academic credentials using IPFS-backed records and
+          auditable blockchain references.
         </p>
-        <div className="flex justify-center gap-4 flex-wrap animate-fade-in-up delay-600">
+        <div className="flex flex-wrap gap-3">
           {/* Verify Certificate Button */}
           <Button
             onClick={() => navigate("/verify")}
-            className="px-8 py-6 text-lg font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_25px_-5px_rgba(16,185,129,0.5)] active:scale-100 active:shadow-inner group rounded-lg"
+            className="h-12 px-6 uppercase tracking-[0.12em] text-xs"
           >
             Verify Certificate
             <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
@@ -42,13 +40,13 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           <Button
             onClick={() => navigate("/admin/upload")}
             variant="outline"
-            className="px-8 py-6 text-lg font-semibold text-blue-600 border border-blue-500/50 bg-white/20 backdrop-blur-md hover:text-white hover:bg-blue-500 hover:border-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_25px_-5px_rgba(59,130,246,0.4)] active:scale-100 active:shadow-inner group rounded-lg"
+            className="h-12 px-6 uppercase tracking-[0.12em] text-xs"
           >
             Upload Certificate
             <Upload className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-y-0.5" />
           </Button>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -23,17 +23,17 @@ export default function VerifiedResult({
 
   return (
     <section
-      className="mt-6 p-4 bg-green-50 border border-green-400 rounded shadow-sm text-sm animate-in fade-in zoom-in-75 duration-300 space-y-3"
+      className="mt-6 space-y-3 border border-blue-500 bg-blue-50 p-4 text-sm dark:border-blue-700 dark:bg-[#0b1220] animate-in fade-in zoom-in-75 duration-300"
       aria-label="Verification result"
       role="status"
     >
       <div className="flex items-center justify-between">
-        <p className="font-medium flex gap-1 items-center text-green-800">
+        <p className="flex items-center gap-1 font-semibold uppercase tracking-[0.08em] text-blue-900 dark:text-blue-200">
           <FaCircleCheck /> Certificate Verified
         </p>
       </div>
       <div className="space-y-2">
-        <p className="text-md text-green-800 font-semibold">
+        <p className="text-md font-semibold text-blue-950 dark:text-blue-100">
           This certificate belongs to {name ?? "Unknown"} with matriculation
           number {matricNo ?? "N/A"}.
         </p>

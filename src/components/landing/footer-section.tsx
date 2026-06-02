@@ -5,13 +5,13 @@ interface FooterProps {
 export default function Footer({ isVisible }: FooterProps) {
   return (
     <footer
-      className={`relative text-center py-8 text-gray-500 dark:text-gray-400 border-t border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm transition-all duration-1000 delay-800 ${
+      className={`relative bg-white py-8 text-slate-500 dark:bg-[#090909] dark:text-zinc-500 transition-all duration-700 delay-500 ${
         isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4">
         <p className="text-sm">
-          &copy; 2025 CertifyChain. All rights reserved.
+          &copy; {new Date().getFullYear()} CertifyChain. All rights reserved.
         </p>
       </div>
     </footer>

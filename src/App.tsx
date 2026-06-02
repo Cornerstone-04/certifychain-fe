@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router";
 export default function App() {
   return (
     <>
-      <Toaster position="top-right" closeButton />
+      <Toaster position="top-right" closeButton richColors />
       <RouterProvider router={router} />
     </>
   );

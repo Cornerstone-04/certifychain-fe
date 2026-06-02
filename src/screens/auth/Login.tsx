@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useLogin } from "@/hooks/useLogin";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const loginMutation = useLogin();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,16 +32,24 @@ const LoginPage = () => {
     e.preventDefault();
 
     loginMutation.mutate(formData, {
-      onSuccess: () => {
-        navigate("/admin/upload", { replace: true });
+      onSuccess: ({ role }) => {
+        const requestedPath = location.state?.from?.pathname;
+        const destination =
+          role === "admin" && requestedPath === "/admin/upload"
+            ? requestedPath
+            : role === "admin"
+              ? "/admin/upload"
+              : "/verify";
+
+        navigate(destination, { replace: true });
       },
     });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+    <div className="fintech-shell flex items-center justify-center p-4">
       <div className="relative w-full max-w-md">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700 backdrop-blur-lg">
+        <div className="fintech-panel p-8">
           <div className="text-center mb-8">
             <Button
               onClick={handleReturnToHome}
@@ -49,8 +58,9 @@ const LoginPage = () => {
             >
               <FaArrowLeft />
             </Button>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              Welcome back
+            <p className="fintech-kicker mb-3">Institution console</p>
+            <h1 className="text-3xl font-black uppercase tracking-[-0.06em] text-slate-950 dark:text-white mb-2">
+              Sign in
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
               Sign in to your account
@@ -59,7 +69,7 @@ const LoginPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="fintech-label">
                 Email Address
               </label>
               <div className="relative">
@@ -77,7 +87,7 @@ const LoginPage = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="fintech-label">
                 Password
               </label>
               <div className="relative">
@@ -107,7 +117,7 @@ const LoginPage = () => {
 
             <Button
               type="submit"
-              className="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+              className="w-full h-12 uppercase tracking-[0.12em] text-xs"
               disabled={loginMutation.isPending}
             >
               {loginMutation.isPending ? "Signing In..." : "Sign In"}
