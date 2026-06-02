@@ -27,15 +27,17 @@ export const LogoutButton = () => {
         <Button
           variant="outline"
           size="icon"
-          className="group border-red-300/50 text-red-600 hover:border-red-500 hover:text-white hover:bg-gradient-to-tr from-red-500 to-rose-500 dark:hover:from-red-600 dark:hover:to-red-700 transition-all duration-300 rounded-md backdrop-blur-sm bg-white/60 dark:bg-gray-800/60"
+          className="border-red-500 text-red-700 hover:border-red-700 hover:bg-red-700 hover:text-white dark:text-red-400"
         >
-          <LogOut className="w-4 h-4 group-hover:rotate-[-10deg] transition-transform" />
+          <LogOut className="w-4 h-4" />
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-md backdrop-blur-md bg-white/90 dark:bg-gray-900/80 rounded-lg shadow-xl">
+      <DialogContent className="border-slate-400 bg-white sm:max-w-md dark:border-zinc-700 dark:bg-[#111111]">
         <DialogHeader>
-          <DialogTitle className="text-red-700">Confirm Logout</DialogTitle>
+          <DialogTitle className="font-black uppercase tracking-[-0.03em] text-red-700 dark:text-red-400">
+            Confirm Logout
+          </DialogTitle>
           <DialogDescription className="text-gray-600 dark:text-gray-300">
             Are you sure you want to end your session?
           </DialogDescription>

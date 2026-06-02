@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -18,7 +18,7 @@ export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
     isFetching: isFetchingMetadata,
   } = useGetCertificateMetadata(hash);
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const trimmedHash = hash.trim();
     if (!trimmedHash) {
@@ -35,31 +35,31 @@ export default function VerifyForm({ onSubmit, isPending }: VerifyFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full">
-      <Input
-        value={matric_no}
-        onChange={(e) => setMatric(e.target.value)}
-        placeholder="Enter student Matric-no."
-        className="text-sm"
-        autoFocus
-        required
-      />
-
-      <Input
-        value={hash}
-        onChange={(e) => setHash(e.target.value)}
-        placeholder="Paste CID here"
-        className="text-sm"
-        autoFocus
-      />
+    <form onSubmit={handleSubmit} className="w-full space-y-5">
+      <div className="space-y-2">
+        <label className="fintech-label">Student reference</label>
+        <Input
+          value={matric_no}
+          onChange={(e) => setMatric(e.target.value)}
+          placeholder="Enter student matric number"
+          className="text-sm"
+          autoFocus
+          required
+        />
+      </div>
+      <div className="space-y-2">
+        <label className="fintech-label">Content identifier</label>
+        <Input
+          value={hash}
+          onChange={(e) => setHash(e.target.value)}
+          placeholder="Paste IPFS CID"
+          className="font-mono text-sm"
+        />
+      </div>
       <Button
         type="submit"
         disabled={isPending}
-        className={`w-full text-white font-semibold transition-all duration-300 rounded-lg px-4 py-3 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 hover:shadow-[0_8px_24px_-4px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed ${
-          isPending || isFetchingMetadata
-            ? "animate-pulse"
-            : "hover:scale-[1.02]"
-        }`}
+        className="w-full h-11 uppercase tracking-[0.12em] text-xs"
       >
         {isPending || isFetchingMetadata
           ? "Verifying..."

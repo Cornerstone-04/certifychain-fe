@@ -1,18 +1,20 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   updateProfile,
   User,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { auth, db } from "@/lib/firebase"; 
+import { auth, db } from "@/lib/firebase";
 import { toast } from "sonner";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore";
+import { getFirebaseErrorMessage } from "@/lib/firebaseErrors";
 
 interface RegisterData {
   email: string;
   password: string;
-  universityName: string; 
+  universityName: string;
 }
 
 export const useRegister = (): UseMutationResult<
@@ -30,28 +32,42 @@ export const useRegister = (): UseMutationResult<
       );
       const user = userCredential.user;
 
-      // Update Firebase Auth profile (displayName)
-      await updateProfile(user, {
-        displayName: universityName, // Use university name as display name
-      });
+      try {
+        await updateProfile(user, {
+          displayName: universityName,
+        });
 
-      // Store additional user data (including role) in Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        universityName: universityName,
-        role: "admin", // Assign 'admin' role upon registration
-        createdAt: new Date().toISOString(),
-      });
+        // Admin access must be granted through a trusted server-side process.
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          universityName: universityName,
+          role: "client",
+          createdAt: new Date().toISOString(),
+        });
+      } catch (error) {
+        try {
+          await deleteUser(user);
+        } catch (cleanupError) {
+          console.error("Failed to clean up incomplete account:", cleanupError);
+        }
+        throw error;
+      }
 
       return user;
     },
     onSuccess: (user) => {
       toast.success(
-        `Welcome, ${user.displayName || "Admin"}! Registration successful.`
+        `Welcome, ${user.displayName || "User"}! Registration successful.`
       );
     },
     onError: (error) => {
-      toast.error(error.message || "Registration failed.");
+      console.error("Registration failed:", error);
+      toast.error(
+        getFirebaseErrorMessage(
+          error,
+          "Unable to create your account. Please try again."
+        )
+      );
     },
   });
 };

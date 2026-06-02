@@ -12,7 +12,7 @@ import {
   Wallet,
 } from "lucide-react"; // Import Wallet icon
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { useWeb3 } from "@/hooks/useWeb3";
 
 interface AppHeaderProps {
@@ -28,20 +28,19 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b border-slate-300 bg-white/95 dark:border-zinc-800 dark:bg-[#090909]/95">
         <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="relative">
-              <Shield className="w-7 h-7 text-blue-500 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-              <div className="absolute inset-0 w-7 h-7 bg-blue-400/30 rounded-full blur-sm group-hover:animate-pulse"></div>
+            <div className="border border-blue-600 p-1 dark:border-blue-400">
+              <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-base font-black uppercase tracking-[-0.04em] text-slate-950 dark:text-white">
                 CertifyChain
               </span>
               <span className="text-xs text-muted-foreground hidden sm:block">
-                Secure • Verified • Trusted
+                Credential integrity rail
               </span>
             </div>
           </Link>
@@ -66,7 +65,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-green-600 hover:text-green-700 hover:bg-green-50 dark:hover:bg-green-950/50 transition-all"
+                        className="text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:text-blue-400 dark:hover:bg-blue-950/50"
                       >
                         <Search className="w-4 h-4 mr-2" />
                         Verify
@@ -82,7 +81,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                       size="sm"
                       onClick={disconnectWallet}
                       disabled={isLoadingWeb3}
-                      className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                      className="border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                     >
                       {isLoadingWeb3
                         ? "Connecting..."
@@ -95,7 +94,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                       size="sm"
                       onClick={connectWallet}
                       disabled={isLoadingWeb3}
-                      className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                      className="border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                     >
                       {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
                       <Wallet className="w-4 h-4 ml-2" />
@@ -110,9 +109,9 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="group border-green-500/50 text-green-600 hover:text-white hover:bg-green-500 hover:border-green-500 transition-all duration-300 hover:shadow-md"
+                    className="border-slate-400 text-slate-800 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:border-zinc-700 dark:text-zinc-200"
                   >
-                    <Search className="w-4 h-4 mr-2 group-hover:scale-110" />
+                    <Search className="w-4 h-4 mr-2 " />
                     Verify Certificate
                   </Button>
                 </Link>
@@ -122,7 +121,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                     size="sm"
                     onClick={disconnectWallet}
                     disabled={isLoadingWeb3}
-                    className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                    className="border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                   >
                     {isLoadingWeb3
                       ? "Connecting..."
@@ -135,7 +134,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                     size="sm"
                     onClick={connectWallet}
                     disabled={isLoadingWeb3}
-                    className="group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                    className="border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                   >
                     {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
                     <Wallet className="w-4 h-4 ml-2" />
@@ -145,10 +144,10 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="group border-blue-500/50 text-blue-600 hover:text-white hover:bg-blue-500 hover:border-blue-500 transition-all duration-300 hover:shadow-md"
+                    className="border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                   >
                     Admin Login
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 ml-2 " />
                   </Button>
                 </Link>
                 <ModeToggle />
@@ -182,7 +181,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden overflow-hidden border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+              className="md:hidden overflow-hidden border-t border-border bg-white dark:bg-[#090909]"
             >
               <div className="container px-4 py-4 space-y-3">
                 {isAuthenticated ? (
@@ -203,7 +202,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="w-full justify-start text-green-600 hover:bg-green-50 dark:hover:bg-green-950/50"
+                            className="w-full justify-start text-blue-700 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/50"
                           >
                             <Search className="w-4 h-4 mr-3" />
                             Verify Certificate
@@ -220,7 +219,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                           toggleMobileMenu();
                         }}
                         disabled={isLoadingWeb3}
-                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                        className="w-full justify-start border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                       >
                         {isLoadingWeb3
                           ? "Connecting..."
@@ -236,7 +235,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                           toggleMobileMenu();
                         }}
                         disabled={isLoadingWeb3}
-                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                        className="w-full justify-start border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                       >
                         {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
                         <Wallet className="w-4 h-4 ml-2" />
@@ -252,7 +251,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full justify-start border-green-500/50 text-green-600 hover:bg-green-500 hover:text-white"
+                        className="w-full justify-start border-slate-400 text-slate-800 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:border-zinc-700 dark:text-zinc-200"
                       >
                         <Search className="w-4 h-4 mr-3" />
                         Verify Certificate
@@ -267,7 +266,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                           toggleMobileMenu();
                         }}
                         disabled={isLoadingWeb3}
-                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                        className="w-full justify-start border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                       >
                         {isLoadingWeb3
                           ? "Connecting..."
@@ -283,7 +282,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                           toggleMobileMenu();
                         }}
                         disabled={isLoadingWeb3}
-                        className="w-full justify-start group border-purple-500/50 text-purple-600 hover:text-white hover:bg-purple-500 hover:border-purple-500 transition-all duration-300 hover:shadow-md"
+                        className="w-full justify-start border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                       >
                         {isLoadingWeb3 ? "Connecting..." : "Connect Wallet"}
                         <Wallet className="w-4 h-4 ml-2" />
@@ -293,7 +292,7 @@ export const AppHeader = ({ isAuthenticated, userRole }: AppHeaderProps) => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full justify-start border-blue-500/50 text-blue-600 hover:bg-blue-500 hover:text-white"
+                        className="w-full justify-start border-blue-500 text-blue-700 hover:border-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-400"
                       >
                         <ArrowRight className="w-4 h-4 mr-3" />
                         Admin Login

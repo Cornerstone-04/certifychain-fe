@@ -1,12 +1,7 @@
 export const AnimatedBackground = () => {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl animate-pulse delay-1000" />
-      <div
-        className="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-400/5 rounded-full blur-3xl animate-bounce delay-500"
-        style={{ animationDuration: "3s" }}
-      />
+    <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-60 dark:opacity-35">
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.055)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:32px_32px]" />
     </div>
   );
 };

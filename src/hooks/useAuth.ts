@@ -17,19 +17,25 @@ export const useAuthStatus = (): AuthStatus => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
-      if (firebaseUser) {
-        const userDocRef = doc(db, "users", firebaseUser.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          const userData = userDocSnap.data();
-          setRole(userData.role || null);
+      try {
+        if (firebaseUser) {
+          const userDocRef = doc(db, "users", firebaseUser.uid);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            setRole(userData.role === "admin" ? "admin" : "client");
+          } else {
+            setRole("client");
+          }
         } else {
-          setRole("client");
+          setRole(null);
         }
-      } else {
+      } catch (error) {
+        console.error("Failed to load the authenticated user profile:", error);
         setRole(null);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();

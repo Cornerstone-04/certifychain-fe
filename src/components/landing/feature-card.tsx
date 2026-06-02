@@ -1,29 +1,30 @@
 import { ReactNode } from "react";
+import { motion } from "motion/react";
 
 interface FeatureCardProps {
   icon: ReactNode;
   title: string;
   description: string;
-  gradient: string;
 }
 
 export default function FeatureCard({
   icon,
   title,
   description,
-  gradient,
 }: FeatureCardProps) {
   return (
-    <div className="group bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200/30 dark:border-gray-700/30 hover:border-gray-300/50 dark:hover:border-gray-600/50 transition-all duration-300 hover:scale-105">
-      <div
-        className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-lg flex items-center justify-center text-white mb-3 transition-transform duration-300 group-hover:scale-110`}
-      >
+    <motion.div
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.2 }}
+      className="fintech-panel group p-5 transition-colors hover:border-blue-600 dark:hover:border-blue-400"
+    >
+      <div className="mb-5 flex h-10 w-10 items-center justify-center border border-blue-600 text-blue-700 dark:border-blue-400 dark:text-blue-400">
         {icon}
       </div>
       <h4 className="font-semibold text-gray-800 dark:text-white text-sm mb-1">
         {title}
       </h4>
       <p className="text-gray-600 dark:text-gray-300 text-xs">{description}</p>
-    </div>
+    </motion.div>
   );
 }

@@ -5,6 +5,7 @@ export const getPasswordStrength = (password: string) => {
   if (/[a-z]/.test(password)) score++;
   if (/[0-9]/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
+  if (score === 5 && password.length >= 12) score++;
 
   if (score <= 2)
     return {
@@ -20,10 +21,17 @@ export const getPasswordStrength = (password: string) => {
       color: "bg-yellow-500",
       "text-color": "text-yellow-500",
     };
+  if (score <= 5)
+    return {
+      score,
+      label: "Strong",
+      color: "bg-green-500",
+      "text-color": "text-green-500",
+    };
   return {
     score,
-    label: "Strong",
-    color: "bg-green-500",
-    "text-color": "text-green-500",
+    label: "Very Strong",
+    color: "bg-emerald-500",
+    "text-color": "text-emerald-500",
   };
 };
