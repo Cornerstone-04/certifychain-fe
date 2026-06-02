@@ -14,7 +14,7 @@ interface UploadFields {
 }
 
 const BLOCKCHAIN_CONFIRMATION_TIMEOUT_MS = 60_000;
-const WALLET_RESPONSE_TIMEOUT_MS = 60_000;
+const WALLET_RESPONSE_TIMEOUT_MS = 180_000;
 
 class TimeoutError extends Error {
   constructor(message: string) {

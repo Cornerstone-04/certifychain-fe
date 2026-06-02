@@ -2,6 +2,7 @@ import { ArrowRight, Upload } from "lucide-react"; // Import Upload icon
 import { useNavigate } from "react-router";
 import { Button } from "../ui/button";
 import { motion } from "motion/react";
+import { TestnetNotice } from "./testnet-notice";
 
 interface HeroSectionProps {
   isVisible: boolean;
@@ -50,6 +51,7 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
             <Upload className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-y-0.5" />
           </Button>
         </div>
+        <TestnetNotice />
       </motion.div>
     </section>
   );
