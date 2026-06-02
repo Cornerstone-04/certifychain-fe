@@ -100,7 +100,7 @@ export function Navbar() {
               size="sm"
               onClick={walletAction}
               disabled={isLoadingWeb3}
-              className="border-blue-500 font-mono text-[10px] uppercase tracking-[0.08em] text-blue-700 hover:bg-blue-600 hover:text-white dark:text-blue-400"
+              className="border-blue-500 font-mono text-[10px] uppercase tracking-[0.08em] text-blue-700 hover:bg-blue-600 hover:text-white dark:text-blue-400 p-4"
             >
               <Wallet className="mr-2 h-4 w-4" />
               {walletLabel}

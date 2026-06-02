@@ -5,6 +5,7 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useLogin } from "@/hooks/useLogin";
+import { DemoAccessBanner } from "@/components/auth/demo-access-banner";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -66,6 +67,8 @@ const LoginPage = () => {
               Sign in to your account
             </p>
           </div>
+
+          <DemoAccessBanner />
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
